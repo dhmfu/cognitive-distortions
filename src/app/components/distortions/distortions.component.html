@@ -1,1 +1,3 @@
-<distortion-card/>
+@for (distortion of distortions(); track distortion.title) {
+  <distortion-card [distortion]="distortion"/>
+}

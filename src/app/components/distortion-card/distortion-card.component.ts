@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, Signal, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
+import { Distortion } from '../../models/distortion';
 
 @Component({
   selector: 'distortion-card',
@@ -9,7 +10,8 @@ import { MatCardModule } from '@angular/material/card';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DistortionCardComponent {
-  title = signal('Надмірне узагальнення');
-  details = signal('Погляд на одну негативну подію як на ознаку того, що все погано.');
-  example = signal('Приклад: Я провалив інтерв\'ю, я ніколи не знайду роботи. Ці стосунки невдалі, я ніколи не знайду супутника життя. Вона мене принизила, я не можу нікому довіряти');
+  distortion = input<Distortion>();
+  title = computed(() => this.distortion()?.title);
+  details = computed(() => this.distortion()?.details);
+  example = computed(() => this.distortion()?.example);
 }
