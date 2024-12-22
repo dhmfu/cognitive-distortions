@@ -1,0 +1,17 @@
+:host {
+  display: block;
+
+  mat-card {
+    height: 100%;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    row-gap: 1rem;
+  }
+
+  footer {
+    text-align: right;
+    padding: 0.5rem;
+  }
+}
