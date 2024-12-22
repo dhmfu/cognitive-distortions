@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { MOCK_DISTORTIONS } from '../../constants/distortions.mock';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { DistortionsService } from '../../services/distortions.service';
 import { DistorionThumbComponent } from '../distortion-thumb/distortion-thumb.component';
 
 @Component({
@@ -10,5 +11,5 @@ import { DistorionThumbComponent } from '../distortion-thumb/distortion-thumb.co
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DistortionsComponent {
-  distortions = signal(MOCK_DISTORTIONS);
+  distortions = toSignal(inject(DistortionsService).getDistortions(), { initialValue: [] });
 }

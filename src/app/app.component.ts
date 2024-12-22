@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { DistortionsComponent } from "./components/distortions/distortions.component";
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [MatButtonModule, DistortionsComponent],
+  imports: [MatButtonModule, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

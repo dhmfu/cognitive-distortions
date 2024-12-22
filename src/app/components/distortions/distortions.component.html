@@ -1,3 +1,3 @@
-@for (distortion of distortions(); track distortion.title) {
-  <distorion-thumb [distortion]="distortion"/>
+@for (distortion of distortions(); track distortion.title; let idx = $index) {
+  <distorion-thumb [distortion]="distortion" [index]="idx"/>
 }
