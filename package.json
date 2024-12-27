@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --host 0.0.0.0",
     "start:open": "npm run start -- --open",
     "deploy": "npm run build:prod && git add . && git commit -m 'uploading artifacts' && git push -f",
     "build:prod": "npm run build -- --base-href /cognitive-distortions/ && node fix-output.js",
