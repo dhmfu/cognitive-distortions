@@ -1,12 +1,12 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, Injector, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { filter } from 'rxjs/operators';
 import { Layout } from '../../constants/layout.enum';
 import { LayoutService } from '../../services/layout.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-toolbar',
