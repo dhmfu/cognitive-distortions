@@ -11,11 +11,14 @@ import { Distortion } from '../../models/distortion';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DistorionThumbComponent {
+  extendedView = input(false);
   index = input('', { transform: trimString });
   distortion = input<Distortion>();
 
   category = computed(() => this.distortion()?.category);
   title = computed(() => this.distortion()?.title);
+  details = computed(() => this.distortion()?.details);
+  example = computed(() => this.distortion()?.example);
 
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);

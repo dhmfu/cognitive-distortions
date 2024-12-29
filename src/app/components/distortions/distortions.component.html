@@ -18,6 +18,6 @@
   [@fadeOut]="gridLayout()"
   [@fadeIn]="rowsLayout()">
   @for (distortion of distortions(); track distortion.title; let idx = $index) {
-    <distorion-thumb [distortion]="distortion" [index]="idx"/>
+    <distorion-thumb [distortion]="distortion" [index]="idx" [extendedView]="true"/>
   }
 </section>

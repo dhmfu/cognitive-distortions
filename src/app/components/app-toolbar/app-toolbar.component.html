@@ -1,5 +1,10 @@
 <mat-toolbar>
+  <button mat-icon-button (click)="goBack()" [style.opacity]="backButtonVisible()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+
   <mat-button-toggle-group
+    [style.opacity]="layoutControlVisible()"
     [hideSingleSelectionIndicator]="true"
     [formControl]="layoutControl">
     <mat-button-toggle [value]="LAYOUT_OPTIONS.Grid">

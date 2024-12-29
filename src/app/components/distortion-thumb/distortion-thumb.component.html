@@ -1,7 +1,16 @@
-<mat-card appearance="raised">
-  <mat-card-content>
-    {{ title() }}
-  </mat-card-content>
+<mat-card appearance="raised" [class.extended]="extendedView()">
+  @if (extendedView()) {
+    <mat-card-header>
+      <mat-card-title>{{ title() }}</mat-card-title>
+      <mat-card-subtitle>{{ details() }}</mat-card-subtitle>
+    </mat-card-header>
+  
+    <mat-card-content>{{ example() }}</mat-card-content>
+  } @else {
+    <mat-card-content>
+      {{ title() }}
+    </mat-card-content>
+  }
    
   <footer>
     <small>{{ category() }}</small>

@@ -1,33 +1,18 @@
-import { AsyncPipe } from '@angular/common';
 import { Component, HostListener, inject } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig, MatSnackBarModule } from '@angular/material/snack-bar';
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { collapseOnLeaveAnimation } from 'angular-animations';
-import { IAnimationOptions } from 'angular-animations/common/interfaces';
+import { RouterOutlet } from '@angular/router';
 import 'hammerjs';
-import { filter, map } from 'rxjs/operators';
 import { AppToolbarComponent } from "./components/app-toolbar/app-toolbar.component";
 
-const COLLAPSE_DURATION: IAnimationOptions = { duration: 250 };
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, AppToolbarComponent, AsyncPipe, MatSnackBarModule],
+  imports: [RouterOutlet, AppToolbarComponent, MatSnackBarModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
-  animations: [
-    collapseOnLeaveAnimation(COLLAPSE_DURATION)
-  ]
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  private router = inject(Router);
   private snackBar = inject(MatSnackBar);
-
-
-  detailsRouted$ = this.router.events.pipe(
-    filter(event => event instanceof NavigationEnd),
-    map((event) => event.url !== '/')
-  );
 
   @HostListener('press', ['$event']) onPress(pressEvent: HammerInput) {
     pressEvent.preventDefault();
