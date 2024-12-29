@@ -1,5 +1,5 @@
 # CognitiveDistortions
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.2.
+Live (hopefully): [Cognitive Distortions](https://dhmfu.github.io/cognitive-distortions/).
 
-TBD
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.2.

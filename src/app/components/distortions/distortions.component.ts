@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { slideInLeftAnimation, slideOutRightAnimation } from 'angular-animations';
+import { fadeInAnimation, fadeOutAnimation, slideInLeftAnimation, slideOutRightAnimation } from 'angular-animations';
 import { IAnimationOptions } from 'angular-animations/common/interfaces';
 import { timer } from 'rxjs';
 import { map, skip, startWith, switchMap } from 'rxjs/operators';
@@ -19,7 +19,9 @@ const SLIDE_DURATION: IAnimationOptions = { duration: 750 };
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     slideInLeftAnimation(SLIDE_DURATION),
-    slideOutRightAnimation(SLIDE_DURATION)
+    slideOutRightAnimation(SLIDE_DURATION),
+    fadeOutAnimation(SLIDE_DURATION),
+    fadeInAnimation(SLIDE_DURATION)
   ]
 })
 export class DistortionsComponent {

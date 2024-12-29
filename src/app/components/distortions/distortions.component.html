@@ -2,7 +2,9 @@
   class="distortions grid"
   [class.hidden]="!gridLayout() && !animating()"
   [@slideInLeft]="gridLayout()"
-  [@slideOutRight]="rowsLayout()">
+  [@slideOutRight]="rowsLayout()"
+  [@fadeOut]="rowsLayout()"
+  [@fadeIn]="gridLayout()">
   @for (distortion of distortions(); track distortion.title; let idx = $index) {
     <distorion-thumb [distortion]="distortion" [index]="idx"/>
   }
@@ -12,7 +14,9 @@
   class="distortions rows"
   [class.hidden]="!rowsLayout() && !animating()"
   [@slideInLeft]="rowsLayout()"
-  [@slideOutRight]="gridLayout()">
+  [@slideOutRight]="gridLayout()"
+  [@fadeOut]="gridLayout()"
+  [@fadeIn]="rowsLayout()">
   @for (distortion of distortions(); track distortion.title; let idx = $index) {
     <distorion-thumb [distortion]="distortion" [index]="idx"/>
   }

@@ -1,4 +1,6 @@
-<app-toolbar></app-toolbar>
+@if (!(detailsRouted$ | async)) {
+  <app-toolbar [@collapseOnLeave]/>
+}
 
 <main class="main">
   <router-outlet></router-outlet>
