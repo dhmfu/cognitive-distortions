@@ -1,25 +1,54 @@
-import { ChangeDetectionStrategy, Component, HostBinding, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { DistortionsService } from '../../services/distortions.service';
-import { DistorionThumbComponent } from '../distortion-thumb/distortion-thumb.component';
-import { LayoutService } from '../../services/layout.service';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, Signal } from '@angular/core';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { slideInLeftAnimation, slideOutRightAnimation } from 'angular-animations';
+import { IAnimationOptions } from 'angular-animations/common/interfaces';
+import { timer } from 'rxjs';
+import { map, skip, startWith, switchMap } from 'rxjs/operators';
 import { Layout } from '../../constants/layout.enum';
+import { DistortionsService } from '../../services/distortions.service';
+import { LayoutService } from '../../services/layout.service';
+import { DistorionThumbComponent } from '../distortion-thumb/distortion-thumb.component';
+
+const SLIDE_DURATION: IAnimationOptions = { duration: 750 };
 
 @Component({
   selector: 'distortions',
   imports: [DistorionThumbComponent],
   templateUrl: './distortions.component.html',
   styleUrl: './distortions.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    slideInLeftAnimation(SLIDE_DURATION),
+    slideOutRightAnimation(SLIDE_DURATION)
+  ]
 })
 export class DistortionsComponent {
   private layoutService = inject(LayoutService);
+  private distortionService = inject(DistortionsService);
 
-  @HostBinding('class') get layout(): string {
+  gridLayout = computed(() => {
     const currentLayout = this.layoutService.getCurrent();
 
-    return currentLayout() === Layout.Grid ? 'grid' : 'rows';
-  }
+    return currentLayout() === Layout.Grid;
+  });
+  rowsLayout = computed(() => !this.gridLayout());
+  animating = this.defineAnimating();
 
-  distortions = toSignal(inject(DistortionsService).getDistortions(), { initialValue: [] });
+  distortions = toSignal(
+    this.distortionService.getDistortions(),
+    { initialValue: [] }
+  );
+
+  private defineAnimating(): Signal<boolean> {
+    return toSignal(
+      toObservable(this.layoutService.getCurrent()).pipe(
+        skip(1),
+        switchMap(() => timer(SLIDE_DURATION.duration! + 1).pipe(
+          map(() => false),
+          startWith(true),
+        )),
+      ),
+      { initialValue: false }
+    );
+  }
 }

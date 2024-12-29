@@ -7,6 +7,7 @@ import { DistortionsService } from '../../services/distortions.service';
 import { Distortion } from '../../models/distortion';
 
 @Component({
+  selector: 'distortion-card',
   imports: [MatCardModule],
   templateUrl: './distortion-card.component.html',
   styleUrl: './distortion-card.component.scss',

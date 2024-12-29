@@ -1,3 +1,19 @@
-@for (distortion of distortions(); track distortion.title; let idx = $index) {
-  <distorion-thumb [distortion]="distortion" [index]="idx"/>
-}
+<section
+  class="distortions grid"
+  [class.hidden]="!gridLayout() && !animating()"
+  [@slideInLeft]="gridLayout()"
+  [@slideOutRight]="rowsLayout()">
+  @for (distortion of distortions(); track distortion.title; let idx = $index) {
+    <distorion-thumb [distortion]="distortion" [index]="idx"/>
+  }
+</section>
+
+<section
+  class="distortions rows"
+  [class.hidden]="!rowsLayout() && !animating()"
+  [@slideInLeft]="rowsLayout()"
+  [@slideOutRight]="gridLayout()">
+  @for (distortion of distortions(); track distortion.title; let idx = $index) {
+    <distorion-thumb [distortion]="distortion" [index]="idx"/>
+  }
+</section>
