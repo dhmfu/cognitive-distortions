@@ -1,0 +1,10 @@
+:host {
+  display: flex;
+  padding: 0.5rem;
+  padding-right: 0;
+  gap: 1rem;
+
+  .mat-mdc-snack-bar-actions {
+    gap: 0.5rem;
+  }
+}
