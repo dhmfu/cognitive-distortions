@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0",
     "start:open": "npm run start -- --open",
-    "deploy": "git checkout -B gh-pages && npm run build:prod && git add . && git commit -m 'uploading artifacts' && git push -f",
+    "deploy": "git checkout -B gh-pages && npm run build:prod && git add . && git commit -m 'uploading artifacts' && git push -f && git checkout main",
     "build:prod": "npm run build -- --base-href /cognitive-distortions/ && node fix-output.js",
     "build:serve": "npm run build && npx http-server -p 8080 -c-1 dist/cognitive-distortions/browser",
     "build": "ng build",
