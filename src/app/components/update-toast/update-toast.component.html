@@ -1,0 +1,19 @@
+<span class="example-pizza-party" matSnackBarLabel>
+  version {{ version }} is here
+</span>
+
+<span matSnackBarActions>
+  <button
+    mat-mini-fab
+    matSnackBarAction
+    (click)="snackBarRef.dismissWithAction()">
+    <mat-icon>refresh</mat-icon>
+  </button>
+
+  <button
+    mat-mini-fab
+    matSnackBarAction
+    (click)="snackBarRef.dismiss()">
+    <mat-icon>close</mat-icon>
+  </button>
+</span>
