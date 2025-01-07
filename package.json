@@ -7,7 +7,7 @@
     "start": "ng serve --host 0.0.0.0",
     "start:open": "npm run start -- --open",
     "deploy": "git checkout -B gh-pages && npm run build:prod && git add . && git commit -m 'uploading artifacts' && git push -f && git checkout main",
-    "build:prod": "npm run build -- --base-href /cognitive-distortions/ && node fix-output.js",
+    "build:prod": "npm run build -- --base-href /cognitive-distortions/ && node scripts/fix-output.js",
     "build:serve": "npm run build && npx http-server -p 8080 -c-1 dist/cognitive-distortions/browser",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
@@ -30,6 +30,7 @@
     "hammerjs": "^2.0.8",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "tsx": "^4.19.2",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {

@@ -4,6 +4,7 @@ import { MatSnackBar, MatSnackBarConfig, MatSnackBarModule } from '@angular/mate
 import { RouterOutlet } from '@angular/router';
 import { filter, switchMap } from 'rxjs/operators';
 import { AppUpdateService } from '../../services/app-update.service';
+import { APP_VERSION } from '../../tokens/version.token';
 import { AppToolbarComponent } from '../app-toolbar/app-toolbar.component';
 import { UpdateToastComponent } from '../update-toast/update-toast.component';
 
@@ -17,6 +18,7 @@ export class CoreComponent implements OnInit {
   private snackBar = inject(MatSnackBar);
   private appUpdates = inject(AppUpdateService);
   private destroyRef = inject(DestroyRef);
+  private appVersion = inject(APP_VERSION);
 
   ngOnInit(): void {
     this.pollAppUpdates();
@@ -31,7 +33,8 @@ export class CoreComponent implements OnInit {
       duration: 1500,
       panelClass: ['text-lg', 'no-select']
     };
-    this.snackBar.open(`version: 0.0.1`, '', snackOptions);
+
+    this.snackBar.open(`version: ${this.appVersion}`, '', snackOptions);
   }
 
   private pollAppUpdates(): void {
