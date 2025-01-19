@@ -24,11 +24,11 @@ export class CoreComponent implements OnInit {
     this.pollAppUpdates();
   }
 
-  @HostListener('press', ['$event']) onPress(pressEvent: HammerInput) {
+  @HostListener('press', ['$event']) onPress(pressEvent: HammerInput): void {
     pressEvent.preventDefault();
     pressEvent.srcEvent.preventDefault();
     pressEvent.srcEvent.stopImmediatePropagation();
-    
+
     const snackOptions: MatSnackBarConfig = {
       duration: 1500,
       panelClass: ['text-lg', 'no-select']

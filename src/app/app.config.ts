@@ -9,6 +9,7 @@ import { APP_VERSION } from './tokens/version.token';
 
 @Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
+  override events = ['press']; 
   override overrides = <any> {
     press: { time: 500 },
   };

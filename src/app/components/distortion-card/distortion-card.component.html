@@ -5,6 +5,13 @@
   </mat-card-header>
 
   <mat-card-content>{{ example() }}</mat-card-content>
+
+  <mat-card-actions align="end">
+    <button mat-flat-button (click)="onLog()">
+      <mat-icon>add</mat-icon>
+      Сповідатись
+    </button>
+  </mat-card-actions>
    
   <footer>
     <small>{{ category() }}</small>

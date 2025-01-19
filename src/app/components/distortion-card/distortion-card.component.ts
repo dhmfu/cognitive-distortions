@@ -5,16 +5,21 @@ import { ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { DistortionsService } from '../../services/distortions.service';
 import { Distortion } from '../../models/distortion';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { StebFormComponent } from '../steb-form/steb-form.component';
 
 @Component({
   selector: 'distortion-card',
-  imports: [MatCardModule],
+  imports: [MatCardModule, MatButtonModule, MatIconModule, MatDialogModule],
   templateUrl: './distortion-card.component.html',
   styleUrl: './distortion-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DistortionCardComponent {
   private distortionsService = inject(DistortionsService);
+  private dialogService = inject(MatDialog);
   private activatedRoute = inject(ActivatedRoute);
 
   distortion: Signal<Distortion | null> = toSignal(
@@ -29,4 +34,8 @@ export class DistortionCardComponent {
   details = computed(() => this.distortion()?.details);
   example = computed(() => this.distortion()?.example);
   category = computed(() => this.distortion()?.category);
+
+  onLog(): void {
+    this.dialogService.open(StebFormComponent);
+  }
 }
