@@ -1,10 +1,11 @@
 import { ApplicationConfig, importProvidersFrom, Injectable, isDevMode, provideZoneChangeDetection } from '@angular/core';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { HAMMER_GESTURE_CONFIG, HammerGestureConfig, HammerModule } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
-import { routes } from './app-routes';
-import { HAMMER_GESTURE_CONFIG, HammerGestureConfig, HammerModule } from '@angular/platform-browser';
 import { version } from '../../package.json';
+import { routes } from './app-routes';
 import { APP_VERSION } from './tokens/version.token';
 
 @Injectable()
@@ -24,6 +25,7 @@ export const appConfig: ApplicationConfig = {
     }),
     provideAnimationsAsync(),
     provideRouter(routes),
+    provideNativeDateAdapter(),
     importProvidersFrom(HammerModule),
     {
       provide: HAMMER_GESTURE_CONFIG,
