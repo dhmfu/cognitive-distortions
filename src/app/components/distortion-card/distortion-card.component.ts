@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, Signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, OnDestroy, Signal } from '@angular/core';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialog, MatDialogModule, MatDialogRef, MatDialogState } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
-import { DistortionsService } from '../../services/distortions.service';
 import { Distortion } from '../../models/distortion';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { DistortionsService } from '../../services/distortions.service';
 import { StebFormComponent } from '../steb-form/steb-form.component';
 
 @Component({
@@ -17,10 +17,13 @@ import { StebFormComponent } from '../steb-form/steb-form.component';
   styleUrl: './distortion-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DistortionCardComponent {
+export class DistortionCardComponent implements OnDestroy {
+  private activatedRoute = inject(ActivatedRoute);
+  private destroyRef = inject(DestroyRef);
   private distortionsService = inject(DistortionsService);
   private dialogService = inject(MatDialog);
-  private activatedRoute = inject(ActivatedRoute);
+
+  private formDialogRef?: MatDialogRef<StebFormComponent>;
 
   distortion: Signal<Distortion | null> = toSignal(
     this.activatedRoute.params.pipe(
@@ -35,7 +38,22 @@ export class DistortionCardComponent {
   example = computed(() => this.distortion()?.example);
   category = computed(() => this.distortion()?.category);
 
+  ngOnDestroy(): void {
+    if (this.formDialogRef && this.formDialogRef.getState() !== MatDialogState.CLOSED) {
+      this.formDialogRef.close();
+    }
+  }
+
   onLog(): void {
-    this.dialogService.open(StebFormComponent);
+    this.formDialogRef = this.dialogService.open(StebFormComponent, {
+      data: this.title(),
+      autoFocus: false,
+    });
+
+    this.formDialogRef.afterClosed().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(data => {
+      console.log(data);
+    });
   }
 }

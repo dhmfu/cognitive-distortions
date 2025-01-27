@@ -5,13 +5,12 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import isEqual from 'lodash/isEqual';
 import { map } from 'rxjs/operators';
-import { MOCK_DISTORTIONS } from '../../constants/distortions.mock';
 import { Distortion } from '../../models/distortion';
 import { DistortionsService } from '../../services/distortions.service';
 
@@ -27,8 +26,10 @@ import { DistortionsService } from '../../services/distortions.service';
 export class StebFormComponent {
   private fb = inject(FormBuilder);
   private distortionsService = inject(DistortionsService);
+  private dialogRef = inject(MatDialogRef);
+  private dialogData = inject<string>(MAT_DIALOG_DATA);
 
-  protected distortionsControl = this.fb.control([MOCK_DISTORTIONS[0].title]);
+  protected distortionsControl = this.fb.control([this.dialogData]);
 
   protected form = this.fb.group({
     details: this.fb.group({
@@ -95,7 +96,14 @@ export class StebFormComponent {
     });
   });
 
+  // onDistortionAdd(event: MatAutocompleteSelectedEvent): void {
+  //   const distortion = event.option.value as Distortion
+  //   const presentDistortions = [...this.distortionsControl.value || []];
+
+  //   this.distortionsControl.setValue([...presentDistortions, distortion.title]);
+  // }
+
   onSubmit():  void {
-    alert(JSON.stringify(this.form.value));
+    this.dialogRef.close(this.form.value);
   }
 }

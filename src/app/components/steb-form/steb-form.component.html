@@ -10,30 +10,59 @@
       
         <mat-form-field>
           <mat-label>Думки</mat-label>
-          <textarea matInput placeholder="Шкода вмерти" formControlName="thoughts"></textarea>
+          <textarea matInput cdkTextareaAutosize placeholder="Шкода вмерти" formControlName="thoughts"></textarea>
         </mat-form-field>
 
-        <mat-chip-set>
-          @for (distortion of distortions(); track $index) {
-            <mat-chip>{{ distortion }}</mat-chip>
-          }
-        </mat-chip-set>
+        <div class="distortions">
+          <span>Когнітивні викривлення:</span>
+
+          <mat-chip-set>
+            @for (distortion of distortions(); track $index) {
+              <mat-chip>{{ distortion }}</mat-chip>
+            }
+          </mat-chip-set>
+        </div>
+
+        <!-- <mat-form-field>
+          <mat-label>Викривлення</mat-label>
+          <mat-chip-grid #chipGrid [formControl]="distortionsControl">
+            @for (distortion of distortions(); track $index) {
+              <mat-chip-row>
+                {{ distortion }}
+              </mat-chip-row>
+            }
+          </mat-chip-grid>
+          <input
+            [matChipInputFor]="chipGrid"
+            [matAutocomplete]="autoGroup"
+          />
+          <mat-autocomplete #autoGroup="matAutocomplete" (optionSelected)="onDistortionAdd($event)">
+            @for (category of categories(); track category.title) {
+              <mat-optgroup [label]="category.title">
+                @for (distortion of category.distortions; track distortion) {
+                  <mat-option [value]="distortion">
+                    {{ distortion.title }}
+                  </mat-option>
+                }
+              </mat-optgroup>
+            }
+          </mat-autocomplete>
+        </mat-form-field> -->
       
         <mat-form-field>
           <mat-label>Емоції</mat-label>
-          <textarea matInput placeholder=":(" formControlName="emotions"></textarea>
+          <textarea matInput cdkTextareaAutosize placeholder=":(" formControlName="emotions"></textarea>
         </mat-form-field>
       
         <mat-form-field>
           <mat-label>Поведінка</mat-label>
-          <textarea matInput placeholder="Піду втоплюся у річці глибокій" formControlName="behaviour"></textarea>
+          <textarea matInput cdkTextareaAutosize placeholder="Піду втоплюся у річці глибокій" formControlName="behaviour"></textarea>
         </mat-form-field>
       </section>
 
       <mat-form-field>
         <mat-label>Дата події</mat-label>
         <input matInput [matDatepicker]="picker" formControlName="date">
-        <mat-hint>За замовчуванням - сьогоднішня</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker touchUi #picker></mat-datepicker>
       </mat-form-field>
