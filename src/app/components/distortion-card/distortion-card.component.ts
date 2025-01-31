@@ -6,13 +6,16 @@ import { MatDialog, MatDialogModule, MatDialogRef, MatDialogState } from '@angul
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
+import { Case } from '../../models/case';
 import { Distortion } from '../../models/distortion';
+import { CaseService } from '../../services/case.service';
 import { DistortionsService } from '../../services/distortions.service';
 import { StebFormComponent } from '../steb-form/steb-form.component';
+import { StebViewComponent } from '../steb-view/steb-view.component';
 
 @Component({
   selector: 'distortion-card',
-  imports: [MatCardModule, MatButtonModule, MatIconModule, MatDialogModule],
+  imports: [MatCardModule, MatButtonModule, MatIconModule, MatDialogModule, StebViewComponent],
   templateUrl: './distortion-card.component.html',
   styleUrl: './distortion-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -22,6 +25,7 @@ export class DistortionCardComponent implements OnDestroy {
   private destroyRef = inject(DestroyRef);
   private distortionsService = inject(DistortionsService);
   private dialogService = inject(MatDialog);
+  private caseService = inject(CaseService);
 
   private formDialogRef?: MatDialogRef<StebFormComponent>;
 
@@ -32,11 +36,22 @@ export class DistortionCardComponent implements OnDestroy {
     ),
     { initialValue: null }
   );
-
   title = computed(() => this.distortion()?.title);
   details = computed(() => this.distortion()?.details);
   example = computed(() => this.distortion()?.example);
   category = computed(() => this.distortion()?.category);
+
+  relevantCases = computed(() => {
+    const distortionTitle = this.title();
+
+    if (!distortionTitle) {
+      return [];
+    }
+
+    const cases = this.caseService.relevantCases(distortionTitle);
+
+    return cases();
+  });
 
   ngOnDestroy(): void {
     if (this.formDialogRef && this.formDialogRef.getState() !== MatDialogState.CLOSED) {
@@ -52,8 +67,10 @@ export class DistortionCardComponent implements OnDestroy {
 
     this.formDialogRef.afterClosed().pipe(
       takeUntilDestroyed(this.destroyRef)
-    ).subscribe(data => {
-      console.log(data);
+    ).subscribe((data: Case | undefined) => {
+      if (data) {
+        this.caseService.log(data);
+      }
     });
   }
 }

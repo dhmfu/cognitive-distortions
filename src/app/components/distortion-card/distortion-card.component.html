@@ -9,7 +9,7 @@
   <mat-card-actions align="end">
     <button mat-flat-button (click)="onLog()">
       <mat-icon>add</mat-icon>
-      Сповідатись
+      Записати випадок
     </button>
   </mat-card-actions>
    
@@ -17,3 +17,7 @@
     <small>{{ category() }}</small>
   </footer>
 </mat-card>
+
+@if (relevantCases().length) {
+  <steb-view [relevantCases]="relevantCases()"/>
+}

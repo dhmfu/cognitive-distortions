@@ -11,10 +11,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import isEqual from 'lodash/isEqual';
 import { map } from 'rxjs/operators';
+import { Case } from '../../models/case';
 import { Distortion } from '../../models/distortion';
 import { DistortionsService } from '../../services/distortions.service';
-
-
 
 @Component({
   selector: 'steb-form',
@@ -29,18 +28,17 @@ export class StebFormComponent {
   private dialogRef = inject(MatDialogRef);
   private dialogData = inject<string>(MAT_DIALOG_DATA);
 
-  protected distortionsControl = this.fb.control([this.dialogData]);
-
-  protected form = this.fb.group({
-    details: this.fb.group({
-      situation: this.fb.control(''),
-      thoughts: this.fb.control(''),
-      distortions: this.distortionsControl,
-      emotions: this.fb.control(''),
-      behaviour: this.fb.control('')
+  protected form = this.fb.nonNullable.group({
+    details: this.fb.nonNullable.group({
+      situation: [''],
+      thoughts: [''],
+      distortions: [[this.dialogData]],
+      emotions: [''],
+      behaviour: ['']
     }),
-    date: this.fb.control<Date>(new Date(), Validators.required)
+    date: [new Date(), Validators.required]
   });
+  protected distortionsControl = this.form.get('details')!.get('distortions')!;
 
   protected distortions = toSignal(
     this.distortionsControl.valueChanges,
@@ -104,6 +102,8 @@ export class StebFormComponent {
   // }
 
   onSubmit():  void {
-    this.dialogRef.close(this.form.value);
+    const caseData: Case = this.form.getRawValue();
+
+    this.dialogRef.close(caseData);
   }
 }

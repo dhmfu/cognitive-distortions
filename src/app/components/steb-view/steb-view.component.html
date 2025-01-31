@@ -1,0 +1,32 @@
+<h2>Випадки:</h2>
+
+@for (caseDateGroup of casesByDate(); track $index) {
+  <mat-accordion displayMode="flat">
+    @for (item of caseDateGroup; track $index) {
+      <mat-expansion-panel togglePosition="before">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ item.date | date : 'EEE, MMM d, hh:mm' }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+          <div>
+            <p>Cитуація</p>
+            <p>{{ item.details.situation }}</p>
+          </div>
+          <div>
+            <p>Думки</p>
+            <p>{{ item.details.thoughts }}</p>
+          </div>
+          <div>
+            <p>Емоції</p>
+            <p>{{ item.details.emotions }}</p>
+          </div>
+          <div>
+            <p>Поведінка</p>
+            <p>{{ item.details.behaviour }}</p>
+          </div>
+      </mat-expansion-panel>
+    }
+  </mat-accordion>
+}
