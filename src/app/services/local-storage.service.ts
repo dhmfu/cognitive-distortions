@@ -7,7 +7,7 @@ import { LocalKey } from '../constants/local-keys.enum';
 export class LocalStorageService {
   private storage = this.initStorage();
 
-  set(key: string, value: any): void {
+  set(key: LocalKey, value: any): void {
     const stringValue = JSON.stringify(value);
 
     const updatedLocalMap = this.storage().set(key, stringValue);

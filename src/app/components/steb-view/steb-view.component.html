@@ -10,21 +10,24 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
 
-          <div>
-            <p>Cитуація</p>
-            <p>{{ item.details.situation }}</p>
+          <div class="steb-item">
+            <h4>Cитуація:</h4>
+            <p>{{ item.details.situation || '--' }}</p>
           </div>
-          <div>
-            <p>Думки</p>
-            <p>{{ item.details.thoughts }}</p>
+
+          <div class="steb-item">
+            <h4>Думки:</h4>
+            <p>{{ item.details.thoughts || '--' }}</p>
           </div>
-          <div>
-            <p>Емоції</p>
-            <p>{{ item.details.emotions }}</p>
+
+          <div class="steb-item">
+            <h4>Емоції:</h4>
+            <p>{{ item.details.emotions || '--' }}</p>
           </div>
-          <div>
-            <p>Поведінка</p>
-            <p>{{ item.details.behaviour }}</p>
+
+          <div class="steb-item">
+            <h4>Поведінка:</h4>
+            <p>{{ item.details.behaviour || '--' }}</p>
           </div>
       </mat-expansion-panel>
     }

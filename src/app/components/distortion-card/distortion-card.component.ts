@@ -48,7 +48,7 @@ export class DistortionCardComponent implements OnDestroy {
       return [];
     }
 
-    const cases = this.caseService.relevantCases(distortionTitle);
+    const cases = this.caseService.getRelevantCases(distortionTitle);
 
     return cases();
   });

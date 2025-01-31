@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import groupBy from "lodash/groupBy";
+import orderBy from "lodash/orderBy";
 import { Case } from '../../models/case';
 
 @Component({
@@ -15,8 +16,10 @@ export class StebViewComponent {
   relevantCases = input<Case[]>([]);
 
   protected casesByDate = computed(() => {
+    const sortedCases = orderBy(this.relevantCases(), 'date', 'desc')
+
     const groupedCases = groupBy(
-      this.relevantCases(),
+      sortedCases,
       ({ date }) => date.setHours(0, 0, 0, 0)
     );
 

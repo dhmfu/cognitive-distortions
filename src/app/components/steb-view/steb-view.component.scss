@@ -8,8 +8,18 @@
       margin-bottom: 1rem;
     }
 
-    p {
-      margin-top: 0;
+    .steb-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      &:not(:last-child) {
+        margin-bottom: 1rem;
+      }
+
+      h4, p {
+        margin: 0;
+      }
     }
   }
 }
