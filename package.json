@@ -29,6 +29,7 @@
     "angular-animations": "^0.11.0",
     "hammerjs": "^2.0.8",
     "lodash": "^4.17.21",
+    "ngx-mat-timepicker": "^19.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

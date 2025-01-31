@@ -3,6 +3,7 @@ import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule, MatDialogRef, MatDialogState } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
@@ -15,7 +16,7 @@ import { StebViewComponent } from '../steb-view/steb-view.component';
 
 @Component({
   selector: 'distortion-card',
-  imports: [MatCardModule, MatButtonModule, MatIconModule, MatDialogModule, StebViewComponent],
+  imports: [MatCardModule, MatButtonModule, MatIconModule, MatDialogModule, StebViewComponent, MatDividerModule],
   templateUrl: './distortion-card.component.html',
   styleUrl: './distortion-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

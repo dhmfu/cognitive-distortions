@@ -20,7 +20,7 @@ export class StebViewComponent {
 
     const groupedCases = groupBy(
       sortedCases,
-      ({ date }) => date.setHours(0, 0, 0, 0)
+      ({ date }) => new Date(date).setHours(0, 0, 0, 0)
     );
 
     return Object.values(groupedCases);

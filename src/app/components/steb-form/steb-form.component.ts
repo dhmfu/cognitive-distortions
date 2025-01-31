@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import isEqual from 'lodash/isEqual';
+import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { map } from 'rxjs/operators';
 import { Case } from '../../models/case';
 import { Distortion } from '../../models/distortion';
@@ -17,7 +18,7 @@ import { DistortionsService } from '../../services/distortions.service';
 
 @Component({
   selector: 'steb-form',
-  imports: [MatFormFieldModule, MatInputModule, MatDialogModule, MatButtonModule, MatIconModule, MatDatepickerModule, MatChipsModule, MatAutocompleteModule, ReactiveFormsModule],
+  imports: [MatFormFieldModule, MatInputModule, MatDialogModule, MatButtonModule, MatIconModule, MatDatepickerModule, MatChipsModule, MatAutocompleteModule, NgxMatTimepickerModule, ReactiveFormsModule],
   templateUrl: './steb-form.component.html',
   styleUrl: './steb-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

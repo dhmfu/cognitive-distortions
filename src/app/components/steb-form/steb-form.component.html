@@ -5,7 +5,7 @@
       <section formGroupName="details">
         <mat-form-field>
           <mat-label>Ситуація</mat-label>
-          <input matInput placeholder="Тяжко жити" formControlName="situation">
+          <textarea matInput cdkTextareaAutosize placeholder="Тяжко жити" formControlName="situation"></textarea>
         </mat-form-field>
       
         <mat-form-field>
@@ -60,12 +60,29 @@
         </mat-form-field>
       </section>
 
-      <mat-form-field>
-        <mat-label>Дата події</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="date">
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker touchUi #picker></mat-datepicker>
-      </mat-form-field>
+      <section class="date-time">
+        <mat-form-field>
+          <mat-label>Дата</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="date">
+          <mat-datepicker touchUi #picker/>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"/>
+        </mat-form-field>
+        
+        <mat-form-field>
+          <input 
+            matInput
+            formControlName="date"
+            [ngxMatTimepicker]="pickerB"
+            [format]="24"
+            placeholder="16:00"
+            readonly />
+          <mat-icon matSuffix (click)="pickerB.open()">
+            watch_later
+          </mat-icon>
+        </mat-form-field>
+
+        <ngx-mat-timepicker color="accent" #pickerB/>
+      </section>
   </mat-dialog-content>
 
   <mat-dialog-actions>
