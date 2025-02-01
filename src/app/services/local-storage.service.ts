@@ -23,6 +23,10 @@ export class LocalStorageService {
     return localValue && JSON.parse(localValue);
   }
 
+  remove(key: LocalKey): void {
+    localStorage.removeItem(key);
+  }
+
   private initStorage(): WritableSignal<Map<string, string | null>> {
     const localEntries = Object.values(LocalKey).reduce((entries, localKey) => {
       const localValue = localStorage.getItem(localKey);

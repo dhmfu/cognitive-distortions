@@ -2,6 +2,7 @@ import { computed, inject, Injectable, Signal, signal, WritableSignal } from '@a
 import { LocalKey } from '../constants/local-keys.enum';
 import { Case } from '../models/case';
 import { LocalStorageService } from './local-storage.service';
+import isEqual from 'lodash/isEqual';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,23 @@ export class CaseService {
   private cases = this.initCurrent();
 
   log(caseData: Case): void  {
-    const currentCases = this.cases();
-    const newCaseState = [...currentCases, caseData];
+    const newCaseState = [...this.cases(), caseData];
 
     this.localStorage.set(LocalKey.Cases, newCaseState);
+
+    this.cases.set(newCaseState);
+  }
+
+  delete(caseData: Case): void {
+    const newCaseState = this.cases().filter(
+      currentCase => !isEqual(currentCase, caseData)
+    );
+
+    if (!newCaseState.length) {
+      this.localStorage.remove(LocalKey.Cases);
+    } else {
+      this.localStorage.set(LocalKey.Cases, newCaseState);
+    }
 
     this.cases.set(newCaseState);
   }
