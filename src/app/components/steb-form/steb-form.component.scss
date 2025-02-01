@@ -21,3 +21,28 @@
     gap: 0.5rem;
   }
 }
+
+::ng-deep .tp {
+  .timepicker-header {
+    background: var(--mat-sys-primary);
+    color: var(--mat-sys-on-primary);
+  }
+
+  .clock-face__clock-hand, .clock-face__center {
+    background: var(--mat-sys-primary);
+  }
+
+  .clock-face__clock-hand button {
+    background: var(--mat-sys-primary);
+    border-radius: 50%;
+  }
+
+  .clock-face__number button {
+    border-radius: 50%;
+
+    &.mat-primary {
+      background: var(--mat-sys-primary);
+      color: var(--mat-sys-on-primary);
+    }
+  }
+}

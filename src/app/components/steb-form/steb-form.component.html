@@ -63,25 +63,30 @@
       <section class="date-time">
         <mat-form-field>
           <mat-label>Дата</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="date">
-          <mat-datepicker touchUi #picker/>
-          <mat-datepicker-toggle matIconSuffix [for]="picker"/>
+          <input
+            matInput
+            readonly
+            formControlName="date"
+            [matDatepicker]="datepicker"
+            (click)="datepicker.open()">
+          <mat-datepicker touchUi #datepicker/>
+          <mat-datepicker-toggle matIconSuffix [for]="datepicker"/>
         </mat-form-field>
         
         <mat-form-field>
+          <mat-label>Час</mat-label>
           <input 
             matInput
-            formControlName="date"
-            [ngxMatTimepicker]="pickerB"
-            [format]="24"
-            placeholder="16:00"
-            readonly />
-          <mat-icon matSuffix (click)="pickerB.open()">
+            readonly
+            formControlName="time"
+            [ngxMatTimepicker]="timepicker"
+            [format]="24"/>
+          <mat-icon matSuffix (click)="timepicker.open()">
             watch_later
           </mat-icon>
         </mat-form-field>
 
-        <ngx-mat-timepicker color="accent" #pickerB/>
+        <ngx-mat-timepicker timepickerClass="tp" #timepicker/>
       </section>
   </mat-dialog-content>
 

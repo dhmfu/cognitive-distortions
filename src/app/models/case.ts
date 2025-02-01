@@ -1,3 +1,5 @@
+// TODO: tech-debt: separate interfaces for UI and DB models
+
 export interface Case {
   details: {
     situation: string;
@@ -6,5 +8,5 @@ export interface Case {
     emotions: string;
     behaviour: string;
   };
-  date: Date;
+  dateTime: Date;
 }

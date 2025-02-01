@@ -1,24 +1,31 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import isEqual from 'lodash/isEqual';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { map } from 'rxjs/operators';
-import { Case } from '../../models/case';
 import { Distortion } from '../../models/distortion';
 import { DistortionsService } from '../../services/distortions.service';
 
+// TODO: tech-debt: MatModules optimizations
+
 @Component({
   selector: 'steb-form',
-  imports: [MatFormFieldModule, MatInputModule, MatDialogModule, MatButtonModule, MatIconModule, MatDatepickerModule, MatChipsModule, MatAutocompleteModule, NgxMatTimepickerModule, ReactiveFormsModule],
+  imports: [MatFormFieldModule, MatInputModule, MatDialogModule, MatButtonModule, MatIconModule, MatDatepickerModule, MatChipsModule, MatAutocompleteModule, NgxMatTimepickerModule, FormsModule, ReactiveFormsModule],
+  providers: [
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: { appearance: 'outline' }
+    }
+  ],
   templateUrl: './steb-form.component.html',
   styleUrl: './steb-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -29,6 +36,8 @@ export class StebFormComponent {
   private dialogRef = inject(MatDialogRef);
   private dialogData = inject<string>(MAT_DIALOG_DATA);
 
+  private now = new Date();
+
   protected form = this.fb.nonNullable.group({
     details: this.fb.nonNullable.group({
       situation: [''],
@@ -37,10 +46,10 @@ export class StebFormComponent {
       emotions: [''],
       behaviour: ['']
     }),
-    date: [new Date(), Validators.required]
+    date: [this.now, Validators.required],
+    time: [Intl.DateTimeFormat('en-US', { timeStyle: 'short', hourCycle: 'h24' }).format(this.now)]
   });
   protected distortionsControl = this.form.get('details')!.get('distortions')!;
-
   protected distortions = toSignal(
     this.distortionsControl.valueChanges,
     { initialValue: this.distortionsControl.value, equal: isEqual }
@@ -102,9 +111,12 @@ export class StebFormComponent {
   //   this.distortionsControl.setValue([...presentDistortions, distortion.title]);
   // }
 
-  onSubmit():  void {
-    const caseData: Case = this.form.getRawValue();
+  protected onSubmit():  void {
+    const { date, time, details } = this.form.getRawValue();
+    const [hours, minutes] = time.split(':');
 
-    this.dialogRef.close(caseData);
+    const dateTime = new Date(date.setHours(+hours, +minutes));
+
+    this.dialogRef.close({ dateTime, details });
   }
 }

@@ -30,7 +30,7 @@ export class CaseService {
     const localCases = this.localStorage.get<Case[]>(LocalKey.Cases);
     const cases = (localCases ?? []).map(caseData => ({
       ...caseData,
-      date: new Date(caseData.date)
+      date: new Date(caseData.dateTime)
     }));
     
 
