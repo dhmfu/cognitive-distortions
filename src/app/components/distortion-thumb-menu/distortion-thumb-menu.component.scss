@@ -1,0 +1,27 @@
+:host {
+  display: block;
+
+  mat-nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    a[mat-list-item] {
+      &.primary {
+        background: var(--mat-sys-primary);
+  
+        span {
+          color: var(--mat-sys-on-primary);
+        }
+      }
+  
+      span {
+        color: var(--mat-sys-primary);
+    
+        &[matLine] {
+          color: var(--mat-sys-secondary);
+        }
+      }
+    }
+  }
+}

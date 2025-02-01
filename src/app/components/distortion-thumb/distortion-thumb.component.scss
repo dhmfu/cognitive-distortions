@@ -12,6 +12,16 @@
     justify-content: space-between;
     width: 100%;
 
+    mat-card-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      button[mat-icon-button] {
+        color: var(--mat-sys-secondary);
+      }
+    }
+
     &.extended {
       row-gap: 0.5rem;
     }
