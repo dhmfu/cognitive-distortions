@@ -1,16 +1,54 @@
-<h2 mat-dialog-title>СДЕП</h2>
+<h2 mat-dialog-title>
+  <span class="title-container">
+    <span>
+      СДЕП
+    </span>
+  
+    <mat-icon
+      [matTooltip]="TOOLTIPS.STEB"
+      matTooltipClass="tooltip-xl"
+      #ttSTEB="matTooltip"
+      (click)="showTooltip($event, ttSTEB)">
+      help_outlined
+    </mat-icon>
+  </span>
+</h2>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <mat-dialog-content>
       <section formGroupName="details">
         <mat-form-field>
           <mat-label>Ситуація</mat-label>
-          <textarea matInput cdkTextareaAutosize placeholder="Тяжко жити" formControlName="situation"></textarea>
+          <textarea
+            matInput
+            cdkTextareaAutosize
+            placeholder="Тяжко жити"
+            formControlName="situation"></textarea>
+          <mat-icon
+            matSuffix
+            [matTooltip]="TOOLTIPS.situation"
+            matTooltipClass="tooltip-xl"
+            #ttSituation="matTooltip"
+            (click)="showTooltip($event, ttSituation)">
+            help_outlined
+          </mat-icon>
         </mat-form-field>
       
         <mat-form-field>
           <mat-label>Думки</mat-label>
-          <textarea matInput cdkTextareaAutosize placeholder="Шкода вмерти" formControlName="thoughts"></textarea>
+          <textarea
+            matInput
+            cdkTextareaAutosize
+            placeholder="Шкода вмерти"
+            formControlName="thoughts"></textarea>
+          <mat-icon
+            matSuffix
+            [matTooltip]="TOOLTIPS.thoughts"
+            matTooltipClass="tooltip-xl"
+            #ttThoughts="matTooltip"
+            (click)="showTooltip($event, ttThoughts)">
+            help_outlined
+          </mat-icon>
         </mat-form-field>
 
         <div class="distortions">
@@ -51,12 +89,36 @@
       
         <mat-form-field>
           <mat-label>Емоції</mat-label>
-          <textarea matInput cdkTextareaAutosize placeholder=":(" formControlName="emotions"></textarea>
+          <textarea
+            matInput
+            cdkTextareaAutosize
+            placeholder="Ехх..."
+            formControlName="emotions"></textarea>
+          <mat-icon
+            matSuffix
+            [matTooltip]="TOOLTIPS.emotions"
+            matTooltipClass="tooltip-xl"
+            #ttEmotions="matTooltip"
+            (click)="showTooltip($event, ttEmotions)">
+            help_outlined
+          </mat-icon>
         </mat-form-field>
       
         <mat-form-field>
           <mat-label>Поведінка</mat-label>
-          <textarea matInput cdkTextareaAutosize placeholder="Піду втоплюся у річці глибокій" formControlName="behaviour"></textarea>
+          <textarea
+            matInput
+            cdkTextareaAutosize
+            placeholder="Піду втоплюся у річці глибокій"
+            formControlName="behaviour"></textarea>
+          <mat-icon
+            matSuffix
+            [matTooltip]="TOOLTIPS.behavior"
+            matTooltipClass="tooltip-xl"
+            #ttBehaviour="matTooltip"
+            (click)="showTooltip($event, ttBehaviour)">
+            help_outlined
+          </mat-icon>
         </mat-form-field>
       </section>
 
@@ -84,9 +146,9 @@
           <mat-icon matSuffix (click)="timepicker.open()">
             watch_later
           </mat-icon>
-        </mat-form-field>
 
-        <ngx-mat-timepicker timepickerClass="tp" #timepicker/>
+          <ngx-mat-timepicker timepickerClass="tp" #timepicker/>
+        </mat-form-field>
       </section>
   </mat-dialog-content>
 

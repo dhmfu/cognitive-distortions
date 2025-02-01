@@ -9,17 +9,19 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
 import isEqual from 'lodash/isEqual';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { map } from 'rxjs/operators';
 import { Distortion } from '../../models/distortion';
 import { DistortionsService } from '../../services/distortions.service';
+import { STEB_TOOLTIPS } from './steb-tooltips';
 
 // TODO: tech-debt: MatModules optimizations
 
 @Component({
   selector: 'steb-form',
-  imports: [MatFormFieldModule, MatInputModule, MatDialogModule, MatButtonModule, MatIconModule, MatDatepickerModule, MatChipsModule, MatAutocompleteModule, NgxMatTimepickerModule, FormsModule, ReactiveFormsModule],
+  imports: [MatFormFieldModule, MatInputModule, MatDialogModule, MatButtonModule, MatIconModule, MatDatepickerModule, MatChipsModule, MatAutocompleteModule, NgxMatTimepickerModule, FormsModule, ReactiveFormsModule, MatTooltipModule],
   providers: [
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
@@ -110,6 +112,13 @@ export class StebFormComponent {
 
   //   this.distortionsControl.setValue([...presentDistortions, distortion.title]);
   // }
+
+  protected readonly TOOLTIPS = STEB_TOOLTIPS;
+
+  protected showTooltip(click: Event, tooltip: MatTooltip): void {
+    click.stopImmediatePropagation();
+    tooltip.show();
+  }
 
   protected onSubmit():  void {
     const { date, time, details } = this.form.getRawValue();

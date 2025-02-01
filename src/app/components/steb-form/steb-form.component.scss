@@ -1,8 +1,23 @@
+::ng-deep .tooltip-xl .mat-mdc-tooltip-surface {
+  max-width: 66vw;
+}
+
 :host {
   display: block;
 
   h2 {
     padding-top: 0;
+
+    .title-container {
+      display: inline-flex;
+      width: 100%;
+      align-items: center;
+      gap: 0.5rem;
+
+      mat-icon {
+        color: var(--mat-sys-on-surface-variant);
+      }
+    }
   }
 
   mat-form-field {
