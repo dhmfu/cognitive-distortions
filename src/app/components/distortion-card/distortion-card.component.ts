@@ -1,14 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, OnDestroy, Signal } from '@angular/core';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, input, OnDestroy } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule, MatDialogRef, MatDialogState } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { ActivatedRoute } from '@angular/router';
-import { map, switchMap } from 'rxjs/operators';
 import { Case } from '../../models/case';
-import { Distortion } from '../../models/distortion';
 import { CaseService } from '../../services/case.service';
 import { DistortionsService } from '../../services/distortions.service';
 import { StebFormComponent } from '../steb-form/steb-form.component';
@@ -22,7 +19,6 @@ import { StebViewComponent } from '../steb-view/steb-view.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DistortionCardComponent implements OnDestroy {
-  private activatedRoute = inject(ActivatedRoute);
   private destroyRef = inject(DestroyRef);
   private distortionsService = inject(DistortionsService);
   private dialogService = inject(MatDialog);
@@ -30,19 +26,19 @@ export class DistortionCardComponent implements OnDestroy {
 
   private formDialogRef?: MatDialogRef<StebFormComponent>;
 
-  distortion: Signal<Distortion | null> = toSignal(
-    this.activatedRoute.params.pipe(
-      map(params => params['slug'] as string || ''),
-      switchMap(slug => this.distortionsService.getDistortion(slug))
-    ),
-    { initialValue: null }
-  );
-  title = computed(() => this.distortion()?.title);
-  details = computed(() => this.distortion()?.details);
-  example = computed(() => this.distortion()?.example);
-  category = computed(() => this.distortion()?.category);
+  slug = input.required<string>();
 
-  relevantCases = computed(() => {
+  protected distortion = computed(() => {
+    const slug = decodeURIComponent(this.slug());
+
+    return this.distortionsService.getDistortion(slug)();
+  });
+  protected title = computed(() => this.distortion()?.title);
+  protected details = computed(() => this.distortion()?.details);
+  protected example = computed(() => this.distortion()?.example);
+  protected category = computed(() => this.distortion()?.category);
+
+  protected relevantCases = computed(() => {
     const distortionTitle = this.title();
 
     if (!distortionTitle) {

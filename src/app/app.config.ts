@@ -2,7 +2,7 @@ import { ApplicationConfig, importProvidersFrom, Injectable, isDevMode, provideZ
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { HAMMER_GESTURE_CONFIG, HammerGestureConfig, HammerModule } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { version } from '../../package.json';
 import { routes } from './app-routes';
@@ -24,7 +24,7 @@ export const appConfig: ApplicationConfig = {
       registrationStrategy: 'registerWhenStable:30000'
     }),
     provideAnimationsAsync(),
-    provideRouter(routes),
+    provideRouter(routes, withComponentInputBinding()),
     provideNativeDateAdapter(),
     importProvidersFrom(HammerModule),
     {

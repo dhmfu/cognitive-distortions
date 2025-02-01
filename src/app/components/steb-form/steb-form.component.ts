@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,8 +12,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
 import isEqual from 'lodash/isEqual';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
-import { map } from 'rxjs/operators';
-import { Distortion } from '../../models/distortion';
 import { DistortionsService } from '../../services/distortions.service';
 import { STEB_TOOLTIPS } from './steb-tooltips';
 
@@ -57,54 +55,54 @@ export class StebFormComponent {
     { initialValue: this.distortionsControl.value, equal: isEqual }
   );
 
-  private categoryMap$ = this.distortionsService.getDistortions().pipe(
-    map(distortions => distortions.reduce((map, distortion) => {
-      const categoryKey = distortion.category;
+  // private categoryMap$ = this.distortionsService.getDistortions().pipe(
+  //   map(distortions => distortions.reduce((map, distortion) => {
+  //     const categoryKey = distortion.category;
 
-      if (!map[categoryKey]) {
-        map[categoryKey] = [];
-      }
+  //     if (!map[categoryKey]) {
+  //       map[categoryKey] = [];
+  //     }
 
-      map[categoryKey].push(distortion);
+  //     map[categoryKey].push(distortion);
 
-      return map;
-    }, {} as { [title: string]: Distortion[] })),
-    takeUntilDestroyed()
-  );
+  //     return map;
+  //   }, {} as { [title: string]: Distortion[] })),
+  //   takeUntilDestroyed()
+  // );
 
-  private categorySource = toSignal(this.categoryMap$);
+  // private categorySource = toSignal(this.categoryMap$);
 
-  protected categories = computed(() => {
-    const categoryMap = this.categorySource();
+  // protected categories = computed(() => {
+  //   const categoryMap = this.categorySource();
 
-    if (!categoryMap) {
-      return [];
-    }
+  //   if (!categoryMap) {
+  //     return [];
+  //   }
 
-    const allDistortions = Object.values(categoryMap).flat();
+  //   const allDistortions = Object.values(categoryMap).flat();
 
-    const distortions = this.distortions()!;
+  //   const distortions = this.distortions()!;
 
-    distortions.forEach(distortionTitle => {
-      const distortion = allDistortions.find(({ title }) => title === distortionTitle);
+  //   distortions.forEach(distortionTitle => {
+  //     const distortion = allDistortions.find(({ title }) => title === distortionTitle);
 
-      if (!distortion || !categoryMap[distortion.category]) {
-        return;
-      }
+  //     if (!distortion || !categoryMap[distortion.category]) {
+  //       return;
+  //     }
       
-      const remainingCategoryDistortions = categoryMap[distortion.category].filter(dsa => dsa.title !== distortion.title);
+  //     const remainingCategoryDistortions = categoryMap[distortion.category].filter(dsa => dsa.title !== distortion.title);
       
-      if (remainingCategoryDistortions.length) {
-        categoryMap[distortion.category] = remainingCategoryDistortions;
-      } else {
-        delete categoryMap[distortion.category]
-      }
-    });
+  //     if (remainingCategoryDistortions.length) {
+  //       categoryMap[distortion.category] = remainingCategoryDistortions;
+  //     } else {
+  //       delete categoryMap[distortion.category]
+  //     }
+  //   });
 
-    return Object.entries(categoryMap).map(([key, value]) => {
-      return { title: key, distortions: value };
-    });
-  });
+  //   return Object.entries(categoryMap).map(([key, value]) => {
+  //     return { title: key, distortions: value };
+  //   });
+  // });
 
   // onDistortionAdd(event: MatAutocompleteSelectedEvent): void {
   //   const distortion = event.option.value as Distortion

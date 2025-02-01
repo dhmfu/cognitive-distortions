@@ -1,4 +1,10 @@
-<mat-card appearance="raised" [class.extended]="extendedView()">
+<mat-card
+  [matBadge]="caseCount()"
+  [matBadgeHidden]="!caseCount()"
+  matBadgeSize="large"
+  matBadgePosition="below before"
+  appearance="raised"
+  [class.extended]="extendedView()">
   @if (extendedView()) {
     <mat-card-header>
       <mat-card-title>{{ title() }}</mat-card-title>
