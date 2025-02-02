@@ -1,8 +1,8 @@
 import { computed, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import isEqual from 'lodash/isEqual';
 import { LocalKey } from '../constants/local-keys.enum';
 import { Case } from '../models/case';
 import { LocalStorageService } from './local-storage.service';
-import isEqual from 'lodash/isEqual';
 
 @Injectable({
   providedIn: 'root'
