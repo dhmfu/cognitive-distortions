@@ -1,0 +1,63 @@
+::ng-deep .tooltip-xl .mat-mdc-tooltip-surface {
+  max-width: 66vw;
+}
+
+:host {
+  display: block;
+
+  h2 {
+    padding-top: 0;
+
+    .title-container {
+      display: inline-flex;
+      width: 100%;
+      align-items: center;
+      gap: 0.5rem;
+
+      mat-icon {
+        color: var(--mat-sys-on-surface-variant);
+      }
+    }
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  .distortions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .date-time {
+    display: flex;
+    gap: 0.5rem;
+  }
+}
+
+::ng-deep .tp {
+  .timepicker-header {
+    background: var(--mat-sys-primary);
+    color: var(--mat-sys-on-primary);
+  }
+
+  .clock-face__clock-hand, .clock-face__center {
+    background: var(--mat-sys-primary);
+  }
+
+  .clock-face__clock-hand button {
+    background: var(--mat-sys-primary);
+    border-radius: 50%;
+  }
+
+  .clock-face__number button {
+    border-radius: 50%;
+
+    &.mat-primary {
+      background: var(--mat-sys-primary);
+      color: var(--mat-sys-on-primary);
+    }
+  }
+}

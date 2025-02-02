@@ -1,32 +1,73 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, Signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, input, OnDestroy } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { ActivatedRoute } from '@angular/router';
-import { map, switchMap } from 'rxjs/operators';
+import { MatDialog, MatDialogModule, MatDialogRef, MatDialogState } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { Case } from '../../models/case';
+import { CaseService } from '../../services/case.service';
 import { DistortionsService } from '../../services/distortions.service';
-import { Distortion } from '../../models/distortion';
+import { StebFormComponent } from '../steb-form/steb-form.component';
+import { StebViewComponent } from '../steb-view/steb-view.component';
 
 @Component({
   selector: 'distortion-card',
-  imports: [MatCardModule],
+  imports: [MatCardModule, MatButtonModule, MatIconModule, MatDialogModule, StebViewComponent, MatDividerModule],
   templateUrl: './distortion-card.component.html',
   styleUrl: './distortion-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DistortionCardComponent {
+export class DistortionCardComponent implements OnDestroy {
+  private destroyRef = inject(DestroyRef);
   private distortionsService = inject(DistortionsService);
-  private activatedRoute = inject(ActivatedRoute);
+  private dialogService = inject(MatDialog);
+  private caseService = inject(CaseService);
 
-  distortion: Signal<Distortion | null> = toSignal(
-    this.activatedRoute.params.pipe(
-      map(params => params['slug'] as string || ''),
-      switchMap(slug => this.distortionsService.getDistortion(slug))
-    ),
-    { initialValue: null }
-  );
+  private formDialogRef?: MatDialogRef<StebFormComponent>;
 
-  title = computed(() => this.distortion()?.title);
-  details = computed(() => this.distortion()?.details);
-  example = computed(() => this.distortion()?.example);
-  category = computed(() => this.distortion()?.category);
+  slug = input.required<string>();
+
+  protected distortion = computed(() => {
+    const slug = decodeURIComponent(this.slug());
+
+    return this.distortionsService.getDistortion(slug)();
+  });
+  protected title = computed(() => this.distortion()?.title);
+  protected details = computed(() => this.distortion()?.details);
+  protected example = computed(() => this.distortion()?.example);
+  protected category = computed(() => this.distortion()?.category);
+
+  protected relevantCases = computed(() => {
+    const distortionTitle = this.title();
+
+    if (!distortionTitle) {
+      return [];
+    }
+
+    const cases = this.caseService.getRelevantCases(distortionTitle);
+
+    return cases();
+  });
+
+  ngOnDestroy(): void {
+    if (this.formDialogRef && this.formDialogRef.getState() !== MatDialogState.CLOSED) {
+      this.formDialogRef.close();
+    }
+  }
+
+  protected onLog(): void {
+    this.formDialogRef = this.dialogService.open(StebFormComponent, {
+      data: this.title(),
+      autoFocus: false,
+    });
+
+    this.formDialogRef.afterClosed().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((data: Case | undefined) => {
+      if (data) {
+        this.caseService.log(data);
+      }
+    });
+  }
 }

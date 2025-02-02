@@ -7,7 +7,7 @@ import { LocalKey } from '../constants/local-keys.enum';
 export class LocalStorageService {
   private storage = this.initStorage();
 
-  set(key: string, value: any): void {
+  set(key: LocalKey, value: any): void {
     const stringValue = JSON.stringify(value);
 
     const updatedLocalMap = this.storage().set(key, stringValue);
@@ -21,6 +21,10 @@ export class LocalStorageService {
     const localValue = this.storage().get(key);
     
     return localValue && JSON.parse(localValue);
+  }
+
+  remove(key: LocalKey): void {
+    localStorage.removeItem(key);
   }
 
   private initStorage(): WritableSignal<Map<string, string | null>> {

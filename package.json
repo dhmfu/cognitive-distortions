@@ -1,7 +1,7 @@
 {
   "name": "cognitive-distortions",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0",
@@ -28,6 +28,8 @@
     "@angular/service-worker": "^19.0.0",
     "angular-animations": "^0.11.0",
     "hammerjs": "^2.0.8",
+    "lodash": "^4.17.21",
+    "ngx-mat-timepicker": "^19.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
@@ -38,6 +40,7 @@
     "@angular/compiler-cli": "^19.0.0",
     "@types/hammerjs": "^2.0.46",
     "@types/jasmine": "~5.1.0",
+    "@types/lodash": "^4.17.14",
     "jasmine-core": "~5.4.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",

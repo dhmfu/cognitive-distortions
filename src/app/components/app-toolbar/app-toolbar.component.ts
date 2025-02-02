@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -22,22 +21,21 @@ export class AppToolbarComponent implements OnInit {
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
   private layoutService = inject(LayoutService);
-  private location = inject(Location);
 
   private detailsRouted$ = this.router.events.pipe(
     filter(event => event instanceof NavigationEnd),
     map((event) => event.url !== '/')
   );
 
-  layoutControl = new FormControl<Layout | null>(null);
+  protected layoutControl = new FormControl<Layout | null>(null);
 
-  backButtonVisible = toSignal(
+  protected backButtonVisible = toSignal(
     this.detailsRouted$.pipe(map(routed => Number(routed))),
     { initialValue: 0 }
   );
-  layoutControlVisible = computed(() => Number(!this.backButtonVisible()));
+  protected layoutControlVisible = computed(() => Number(!this.backButtonVisible()));
 
-  readonly LAYOUT_OPTIONS = Layout;
+  protected readonly LAYOUT_OPTIONS = Layout;
 
   ngOnInit(): void {
     const currentLayout = this.layoutService.getCurrent();
@@ -52,7 +50,7 @@ export class AppToolbarComponent implements OnInit {
     });
   }
 
-  goBack(): void {
-    this.location.back();
+  protected goBack(): void {
+    this.router.navigate(['']);
   }
 }

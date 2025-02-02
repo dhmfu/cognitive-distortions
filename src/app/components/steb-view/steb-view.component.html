@@ -1,0 +1,51 @@
+<header>Випадки:</header>
+
+@for (caseDateGroup of casesByDate(); track $index) {
+  <mat-accordion displayMode="flat">
+    @for (item of caseDateGroup; track $index) {
+      <mat-expansion-panel togglePosition="before">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div>
+              {{ item.dateTime | date : 'EEE, MMM d, HH:mm' }}
+            </div>
+
+            @if (item.details.situation) {
+              <div class="short-situation">
+                {{ item.details.situation }}
+              </div>
+            }
+          </mat-panel-title>
+          
+          <button
+            class="delete-case"
+            mat-icon-button
+            matTooltip="Видалити запис"
+            (click)="onCaseDelete($event, item)">
+            <mat-icon>remove</mat-icon>
+          </button>
+        </mat-expansion-panel-header>
+
+        <div class="steb-item">
+          <h4>Cитуація:</h4>
+          <p>{{ item.details.situation || '--' }}</p>
+        </div>
+
+        <div class="steb-item">
+          <h4>Думки:</h4>
+          <p>{{ item.details.thoughts || '--' }}</p>
+        </div>
+
+        <div class="steb-item">
+          <h4>Емоції:</h4>
+          <p>{{ item.details.emotions || '--' }}</p>
+        </div>
+
+        <div class="steb-item">
+          <h4>Поведінка:</h4>
+          <p>{{ item.details.behaviour || '--' }}</p>
+        </div>
+      </mat-expansion-panel>
+    }
+  </mat-accordion>
+}

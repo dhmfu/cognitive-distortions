@@ -1,3 +1,5 @@
+@use '@angular/material' as mat;
+
 :host {
   display: inline-block;
   padding: 0.25rem;
@@ -10,6 +12,16 @@
     justify-content: space-between;
     width: 100%;
 
+    mat-card-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      button[mat-icon-button] {
+        color: var(--mat-sys-secondary);
+      }
+    }
+
     &.extended {
       row-gap: 0.5rem;
     }
@@ -19,4 +31,9 @@
     text-align: right;
     padding: 0.5rem;
   }
+
+  @include mat.badge-overrides((
+    background-color: var(--mat-sys-secondary),
+    text-color: var(--mat-sys-on-secondary),
+  ));
 }

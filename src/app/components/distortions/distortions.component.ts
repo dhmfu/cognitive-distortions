@@ -28,18 +28,15 @@ export class DistortionsComponent {
   private layoutService = inject(LayoutService);
   private distortionService = inject(DistortionsService);
 
-  gridLayout = computed(() => {
+  protected gridLayout = computed(() => {
     const currentLayout = this.layoutService.getCurrent();
 
     return currentLayout() === Layout.Grid;
   });
-  rowsLayout = computed(() => !this.gridLayout());
-  animating = this.defineAnimating();
+  protected rowsLayout = computed(() => !this.gridLayout());
+  protected animating = this.defineAnimating();
 
-  distortions = toSignal(
-    this.distortionService.getDistortions(),
-    { initialValue: [] }
-  );
+  protected distortions = this.distortionService.getDistortions();
 
   private defineAnimating(): Signal<boolean> {
     return toSignal(

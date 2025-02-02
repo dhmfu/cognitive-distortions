@@ -1,0 +1,158 @@
+<h2 mat-dialog-title>
+  <span class="title-container">
+    <span>
+      СДЕП
+    </span>
+  
+    <mat-icon
+      [matTooltip]="TOOLTIPS.STEB"
+      matTooltipClass="tooltip-xl"
+      #ttSTEB="matTooltip"
+      (click)="showTooltip($event, ttSTEB)">
+      help_outlined
+    </mat-icon>
+  </span>
+</h2>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+      <section formGroupName="details">
+        <mat-form-field>
+          <mat-label>Ситуація</mat-label>
+          <textarea
+            matInput
+            cdkTextareaAutosize
+            placeholder="Тяжко жити"
+            formControlName="situation"></textarea>
+          <mat-icon
+            matSuffix
+            [matTooltip]="TOOLTIPS.situation"
+            matTooltipClass="tooltip-xl"
+            #ttSituation="matTooltip"
+            (click)="showTooltip($event, ttSituation)">
+            help_outlined
+          </mat-icon>
+        </mat-form-field>
+      
+        <mat-form-field>
+          <mat-label>Думки</mat-label>
+          <textarea
+            matInput
+            cdkTextareaAutosize
+            placeholder="Шкода вмерти"
+            formControlName="thoughts"></textarea>
+          <mat-icon
+            matSuffix
+            [matTooltip]="TOOLTIPS.thoughts"
+            matTooltipClass="tooltip-xl"
+            #ttThoughts="matTooltip"
+            (click)="showTooltip($event, ttThoughts)">
+            help_outlined
+          </mat-icon>
+        </mat-form-field>
+
+        <div class="distortions">
+          <span>Когнітивні викривлення:</span>
+
+          <mat-chip-set>
+            @for (distortion of distortions(); track $index) {
+              <mat-chip>{{ distortion }}</mat-chip>
+            }
+          </mat-chip-set>
+        </div>
+
+        <!-- <mat-form-field>
+          <mat-label>Викривлення</mat-label>
+          <mat-chip-grid #chipGrid [formControl]="distortionsControl">
+            @for (distortion of distortions(); track $index) {
+              <mat-chip-row>
+                {{ distortion }}
+              </mat-chip-row>
+            }
+          </mat-chip-grid>
+          <input
+            [matChipInputFor]="chipGrid"
+            [matAutocomplete]="autoGroup"
+          />
+          <mat-autocomplete #autoGroup="matAutocomplete" (optionSelected)="onDistortionAdd($event)">
+            @for (category of categories(); track category.title) {
+              <mat-optgroup [label]="category.title">
+                @for (distortion of category.distortions; track distortion) {
+                  <mat-option [value]="distortion">
+                    {{ distortion.title }}
+                  </mat-option>
+                }
+              </mat-optgroup>
+            }
+          </mat-autocomplete>
+        </mat-form-field> -->
+      
+        <mat-form-field>
+          <mat-label>Емоції</mat-label>
+          <textarea
+            matInput
+            cdkTextareaAutosize
+            placeholder="Ехх..."
+            formControlName="emotions"></textarea>
+          <mat-icon
+            matSuffix
+            [matTooltip]="TOOLTIPS.emotions"
+            matTooltipClass="tooltip-xl"
+            #ttEmotions="matTooltip"
+            (click)="showTooltip($event, ttEmotions)">
+            help_outlined
+          </mat-icon>
+        </mat-form-field>
+      
+        <mat-form-field>
+          <mat-label>Поведінка</mat-label>
+          <textarea
+            matInput
+            cdkTextareaAutosize
+            placeholder="Піду втоплюся у річці глибокій"
+            formControlName="behaviour"></textarea>
+          <mat-icon
+            matSuffix
+            [matTooltip]="TOOLTIPS.behavior"
+            matTooltipClass="tooltip-xl"
+            #ttBehaviour="matTooltip"
+            (click)="showTooltip($event, ttBehaviour)">
+            help_outlined
+          </mat-icon>
+        </mat-form-field>
+      </section>
+
+      <section class="date-time">
+        <mat-form-field>
+          <mat-label>Дата</mat-label>
+          <input
+            matInput
+            readonly
+            formControlName="date"
+            [matDatepicker]="datepicker"
+            (click)="datepicker.open()">
+          <mat-datepicker touchUi #datepicker/>
+          <mat-datepicker-toggle matIconSuffix [for]="datepicker"/>
+        </mat-form-field>
+        
+        <mat-form-field>
+          <mat-label>Час</mat-label>
+          <input 
+            matInput
+            readonly
+            formControlName="time"
+            [ngxMatTimepicker]="timepicker"
+            [format]="24"/>
+          <mat-icon matSuffix (click)="timepicker.open()">
+            watch_later
+          </mat-icon>
+
+          <ngx-mat-timepicker timepickerClass="tp" #timepicker/>
+        </mat-form-field>
+      </section>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button type="submit">Зберегти</button>
+  </mat-dialog-actions>
+</form>
