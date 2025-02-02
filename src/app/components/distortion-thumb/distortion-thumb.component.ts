@@ -51,6 +51,7 @@ export class DistorionThumbComponent {
   protected openMenu(event: Event): void {
     event.stopPropagation();
 
+    // TODO: tech-debt: clear ref on navigation
     this._bottomSheet.open(DistortionThumbMenuComponent, {
       data: this.title(),
       restoreFocus: false

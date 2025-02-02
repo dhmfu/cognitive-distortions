@@ -56,7 +56,7 @@ export class DistortionCardComponent implements OnDestroy {
     }
   }
 
-  onLog(): void {
+  protected onLog(): void {
     this.formDialogRef = this.dialogService.open(StebFormComponent, {
       data: this.title(),
       autoFocus: false,

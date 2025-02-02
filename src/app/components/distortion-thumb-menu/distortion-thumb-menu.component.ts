@@ -24,7 +24,7 @@ export class DistortionThumbMenuComponent {
 
   private formDialogRef?: MatDialogRef<StebFormComponent>;
 
-  onLog(): void {
+  protected onLog(): void {
     this.formDialogRef = this.dialogService.open(StebFormComponent, {
       data: this.distortionTitle,
       autoFocus: false,
@@ -41,7 +41,7 @@ export class DistortionThumbMenuComponent {
     });
   }
 
-  onNothing(): void {
+  protected onNothing(): void {
     this.caseService.logNothing();
   }
 }
