@@ -1,7 +1,7 @@
 {
   "name": "cognitive-distortions",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0",
