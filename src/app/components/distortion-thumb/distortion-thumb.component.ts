@@ -9,6 +9,8 @@ import { Distortion } from '../../models/distortion';
 import { CaseService } from '../../services/case.service';
 import { DistortionThumbMenuComponent } from '../distortion-thumb-menu/distortion-thumb-menu.component';
 
+// TODO: tech-debt: refactor (abstract away) card and thumb
+
 @Component({
   selector: 'distorion-thumb',
   imports: [MatCardModule, MatButtonModule, MatBadgeModule, MatIconModule, MatBottomSheetModule],
@@ -18,7 +20,6 @@ import { DistortionThumbMenuComponent } from '../distortion-thumb-menu/distortio
 })
 export class DistorionThumbComponent {
   extendedView = input(false);
-  index = input('', { transform: trimString });
   distortion = input<Distortion>();
 
   private caseService = inject(CaseService);
@@ -50,10 +51,9 @@ export class DistorionThumbComponent {
   protected openMenu(event: Event): void {
     event.stopPropagation();
 
-    this._bottomSheet.open(DistortionThumbMenuComponent);
+    this._bottomSheet.open(DistortionThumbMenuComponent, {
+      data: this.title(),
+      restoreFocus: false
+    });
   }
-}
-
-function trimString(value: number | undefined): string {  
-  return value?.toString() || '';
 }

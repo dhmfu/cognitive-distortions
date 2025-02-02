@@ -1,4 +1,5 @@
 export enum LocalKey {
   Layout = 'layout',
-  Cases = 'cases'
+  Cases = 'cases',
+  Nothing = 'nothing'
 }

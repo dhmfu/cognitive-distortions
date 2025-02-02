@@ -12,7 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
 import isEqual from 'lodash/isEqual';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
-import { DistortionsService } from '../../services/distortions.service';
+// import { DistortionsService } from '../../services/distortions.service';
 import { STEB_TOOLTIPS } from './steb-tooltips';
 
 // TODO: tech-debt: MatModules optimizations
@@ -32,7 +32,7 @@ import { STEB_TOOLTIPS } from './steb-tooltips';
 })
 export class StebFormComponent {
   private fb = inject(FormBuilder);
-  private distortionsService = inject(DistortionsService);
+  // private distortionsService = inject(DistortionsService);
   private dialogRef = inject(MatDialogRef);
   private dialogData = inject<string>(MAT_DIALOG_DATA);
 

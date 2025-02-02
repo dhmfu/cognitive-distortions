@@ -1,3 +1,5 @@
+<!-- TODO: tech-debt: make into one template -->
+
 <section
   class="distortions grid"
   [class.hidden]="!gridLayout() && !animating()"
@@ -5,8 +7,8 @@
   [@slideOutRight]="rowsLayout()"
   [@fadeOut]="rowsLayout()"
   [@fadeIn]="gridLayout()">
-  @for (distortion of distortions(); track distortion.title; let idx = $index) {
-    <distorion-thumb [distortion]="distortion" [index]="idx"/>
+  @for (distortion of distortions(); track distortion.title) {
+    <distorion-thumb [distortion]="distortion"/>
   }
 </section>
 
@@ -17,7 +19,7 @@
   [@slideOutRight]="gridLayout()"
   [@fadeOut]="gridLayout()"
   [@fadeIn]="rowsLayout()">
-  @for (distortion of distortions(); track distortion.title; let idx = $index) {
-    <distorion-thumb [distortion]="distortion" [index]="idx" [extendedView]="true"/>
+  @for (distortion of distortions(); track distortion.title) {
+    <distorion-thumb [distortion]="distortion" [extendedView]="true"/>
   }
 </section>

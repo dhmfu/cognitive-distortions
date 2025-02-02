@@ -20,6 +20,12 @@ export class CaseService {
     this.cases.set(newCaseState);
   }
 
+  logNothing(): void {
+    const nothing = this.localStorage.get<number>(LocalKey.Nothing) ?? 0;
+
+    this.localStorage.set(LocalKey.Nothing, nothing + 1);
+  }
+
   delete(caseData: Case): void {
     const newCaseState = this.cases().filter(
       currentCase => !isEqual(currentCase, caseData)
