@@ -9,7 +9,7 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import isEqual from 'lodash/isEqual';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 // import { DistortionsService } from '../../services/distortions.service';
@@ -112,11 +112,6 @@ export class StebFormComponent {
   // }
 
   protected readonly TOOLTIPS = STEB_TOOLTIPS;
-
-  protected showTooltip(click: Event, tooltip: MatTooltip): void {
-    click.stopImmediatePropagation();
-    tooltip.show();
-  }
 
   protected onSubmit():  void {
     const { date, time, details } = this.form.getRawValue();

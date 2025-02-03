@@ -25,6 +25,10 @@
     &.extended {
       row-gap: 0.5rem;
     }
+
+    &:not(.extended) mat-card-content {
+      display: flex;
+    }
   }
 
   footer {

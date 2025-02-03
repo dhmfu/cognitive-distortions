@@ -43,7 +43,6 @@ export class CoreComponent implements OnInit {
       switchMap(event => {
         const version = (event.latestVersion.appData as any)?.version as string;
         const snackOptions: MatSnackBarConfig = {
-          duration: 5000,
           panelClass: ['text-lg'],
           data: version
         };

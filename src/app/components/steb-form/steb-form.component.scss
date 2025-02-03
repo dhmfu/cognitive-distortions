@@ -26,9 +26,13 @@
 
   .distortions {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 0.25rem;
     margin-bottom: 1rem;
+
+    span {
+      font-size: var(--mat-sys-body-large-size);
+    }
   }
 
   .date-time {

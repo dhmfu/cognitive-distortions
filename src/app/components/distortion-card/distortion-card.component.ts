@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, input, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, effect, inject, input, OnDestroy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -10,6 +10,7 @@ import { CaseService } from '../../services/case.service';
 import { DistortionsService } from '../../services/distortions.service';
 import { StebFormComponent } from '../steb-form/steb-form.component';
 import { StebViewComponent } from '../steb-view/steb-view.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'distortion-card',
@@ -23,6 +24,7 @@ export class DistortionCardComponent implements OnDestroy {
   private distortionsService = inject(DistortionsService);
   private dialogService = inject(MatDialog);
   private caseService = inject(CaseService);
+  private router = inject(Router);
 
   private formDialogRef?: MatDialogRef<StebFormComponent>;
 
@@ -37,6 +39,12 @@ export class DistortionCardComponent implements OnDestroy {
   protected details = computed(() => this.distortion()?.details);
   protected example = computed(() => this.distortion()?.example);
   protected category = computed(() => this.distortion()?.category);
+
+  private distortionExistGuard = effect(() => {
+    if (this.slug !== undefined && !this.distortion()) {
+      this.router.navigate(['']);
+    }
+  });
 
   protected relevantCases = computed(() => {
     const distortionTitle = this.title();

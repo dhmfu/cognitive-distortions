@@ -22,7 +22,13 @@
     <mat-card-content>{{ example() }}</mat-card-content>
   } @else {
     <mat-card-content>
-      {{ title() }}
+      <span>
+        {{ title() }}
+      </span>
+
+      <button mat-icon-button (click)="openMenu($event)">
+        <mat-icon>more_vert</mat-icon>
+      </button>
     </mat-card-content>
   }
    
