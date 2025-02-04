@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, LOCALE_ID } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -35,6 +35,7 @@ export class StebFormComponent {
   // private distortionsService = inject(DistortionsService);
   private dialogRef = inject(MatDialogRef);
   private dialogData = inject<string>(MAT_DIALOG_DATA);
+  private appLocale = inject(LOCALE_ID);
 
   private now = new Date();
 
@@ -47,7 +48,10 @@ export class StebFormComponent {
       behaviour: ['']
     }),
     date: [this.now, Validators.required],
-    time: [Intl.DateTimeFormat('en-US', { timeStyle: 'short', hourCycle: 'h24' }).format(this.now)]
+    time: [Intl.DateTimeFormat(
+      this.appLocale,
+      { timeStyle: 'short', hourCycle: 'h24' }
+    ).format(this.now)]
   });
   protected distortionsControl = this.form.get('details')!.get('distortions')!;
   protected distortions = toSignal(

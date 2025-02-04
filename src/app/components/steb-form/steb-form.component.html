@@ -137,7 +137,14 @@
             watch_later
           </mat-icon>
 
-          <ngx-mat-timepicker timepickerClass="tp" #timepicker/>
+          <ngx-mat-timepicker
+            #timepicker
+            [cancelBtnTmpl]="tpCancelBtn"
+            timepickerClass="tp"/>
+
+          <ng-template #tpCancelBtn>
+            <button mat-button>Скасувати</button>
+          </ng-template>
         </mat-form-field>
       </section>
   </mat-dialog-content>
