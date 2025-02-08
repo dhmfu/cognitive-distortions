@@ -48,10 +48,7 @@ export class StebFormComponent {
       behaviour: ['']
     }),
     date: [this.now, Validators.required],
-    time: [Intl.DateTimeFormat(
-      this.appLocale,
-      { timeStyle: 'short', hourCycle: 'h24' }
-    ).format(this.now)]
+    time: [`${this.now.getHours()}:${this.now.getMinutes()}`]
   });
   protected distortionsControl = this.form.get('details')!.get('distortions')!;
   protected distortions = toSignal(
