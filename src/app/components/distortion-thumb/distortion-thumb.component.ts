@@ -25,7 +25,7 @@ export class DistorionThumbComponent {
   private caseService = inject(CaseService);
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
-  private _bottomSheet = inject(MatBottomSheet);
+  private bottomSheet = inject(MatBottomSheet);
 
   protected category = computed(() => this.distortion()?.category);
   protected title = computed(() => this.distortion()?.title);
@@ -52,7 +52,7 @@ export class DistorionThumbComponent {
     event.stopPropagation();
 
     // TODO: tech-debt: clear ref on navigation
-    this._bottomSheet.open(DistortionThumbMenuComponent, {
+    this.bottomSheet.open(DistortionThumbMenuComponent, {
       data: this.title(),
       restoreFocus: false
     });

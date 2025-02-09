@@ -4,9 +4,12 @@
 
 :host {
   display: block;
+  padding: 0.5rem;
 
   h2 {
-    padding-top: 0;
+    margin: 0 0 1.5rem;
+
+    font: var(--mat-sys-headline-medium);
 
     .title-container {
       display: inline-flex;
@@ -38,6 +41,12 @@
   .date-time {
     display: flex;
     gap: 0.5rem;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: center;
+    padding-top: 0.25rem;
   }
 }
 

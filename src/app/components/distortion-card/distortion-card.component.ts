@@ -1,20 +1,21 @@
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, effect, inject, input, OnDestroy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatBottomSheet, MatBottomSheetModule, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialog, MatDialogModule, MatDialogRef, MatDialogState } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
 import { Case } from '../../models/case';
 import { CaseService } from '../../services/case.service';
 import { DistortionsService } from '../../services/distortions.service';
 import { StebFormComponent } from '../steb-form/steb-form.component';
 import { StebViewComponent } from '../steb-view/steb-view.component';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'distortion-card',
-  imports: [MatCardModule, MatButtonModule, MatIconModule, MatDialogModule, StebViewComponent, MatDividerModule],
+  imports: [MatCardModule, MatButtonModule, MatBottomSheetModule, MatIconModule, MatDialogModule, StebViewComponent, MatDividerModule],
   templateUrl: './distortion-card.component.html',
   styleUrl: './distortion-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -22,11 +23,11 @@ import { Router } from '@angular/router';
 export class DistortionCardComponent implements OnDestroy {
   private destroyRef = inject(DestroyRef);
   private distortionsService = inject(DistortionsService);
-  private dialogService = inject(MatDialog);
+  private bottomSheet = inject(MatBottomSheet);
   private caseService = inject(CaseService);
   private router = inject(Router);
 
-  private formDialogRef?: MatDialogRef<StebFormComponent>;
+  private formSheetRef?: MatBottomSheetRef<StebFormComponent>;
 
   slug = input.required<string>();
 
@@ -40,6 +41,7 @@ export class DistortionCardComponent implements OnDestroy {
   protected example = computed(() => this.distortion()?.example);
   protected category = computed(() => this.distortion()?.category);
 
+  // effects
   private distortionExistGuard = effect(() => {
     if (this.slug !== undefined && !this.distortion()) {
       this.router.navigate(['']);
@@ -59,23 +61,25 @@ export class DistortionCardComponent implements OnDestroy {
   });
 
   ngOnDestroy(): void {
-    if (this.formDialogRef && this.formDialogRef.getState() !== MatDialogState.CLOSED) {
-      this.formDialogRef.close();
+    if (this.formSheetRef) {
+      this.formSheetRef.dismiss();
     }
   }
 
   protected onLog(): void {
-    this.formDialogRef = this.dialogService.open(StebFormComponent, {
+    this.formSheetRef = this.bottomSheet.open(StebFormComponent, {
       data: this.title(),
       autoFocus: false,
     });
 
-    this.formDialogRef.afterClosed().pipe(
+    this.formSheetRef.afterDismissed().pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe((data: Case | undefined) => {
       if (data) {
         this.caseService.log(data);
       }
+
+      this.formSheetRef = undefined;
     });
   }
 }

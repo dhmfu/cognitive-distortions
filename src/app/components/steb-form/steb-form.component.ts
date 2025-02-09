@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject, LOCALE_ID } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -13,6 +13,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import isEqual from 'lodash/isEqual';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 // import { DistortionsService } from '../../services/distortions.service';
+import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { STEB_TOOLTIPS } from './steb-tooltips';
 
 // TODO: tech-debt: MatModules optimizations
@@ -33,9 +34,8 @@ import { STEB_TOOLTIPS } from './steb-tooltips';
 export class StebFormComponent {
   private fb = inject(FormBuilder);
   // private distortionsService = inject(DistortionsService);
-  private dialogRef = inject(MatDialogRef);
-  private dialogData = inject<string>(MAT_DIALOG_DATA);
-  private appLocale = inject(LOCALE_ID);
+  private sheetRef = inject(MatBottomSheetRef);
+  private sheetData = inject<string>(MAT_BOTTOM_SHEET_DATA);
 
   private now = new Date();
 
@@ -43,7 +43,7 @@ export class StebFormComponent {
     details: this.fb.nonNullable.group({
       situation: [''],
       thoughts: [''],
-      distortions: [[this.dialogData]],
+      distortions: [[this.sheetData]],
       emotions: [''],
       behaviour: ['']
     }),
@@ -120,6 +120,6 @@ export class StebFormComponent {
 
     const dateTime = new Date(date.setHours(+hours, +minutes));
 
-    this.dialogRef.close({ dateTime, details });
+    this.sheetRef.dismiss({ dateTime, details });
   }
 }
