@@ -1,4 +1,3 @@
-import { AnimationEvent } from '@angular/animations';
 import { ChangeDetectionStrategy, Component, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
@@ -6,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { collapseOnLeaveAnimation, expandOnEnterAnimation } from 'angular-animations';
-import { debounceTime, delay, filter, map, take } from 'rxjs/operators';
+import { debounceTime, filter, map, take } from 'rxjs/operators';
 import { Case } from '../../models/case';
 import { CaseService } from '../../services/case.service';
 import { StebFormComponent } from '../steb-form/steb-form.component';
@@ -49,35 +48,13 @@ export class DistortionThumbMenuComponent {
 
     const formContainer = formElement.parentElement!;
   
-    formContainer.style.maxHeight = formHeight + 'px';
+    formContainer.style.maxHeight = `${formHeight}px`;
   });
 
   protected onCreateCase(caseData: Case): void {
     this.caseService.log(caseData);
 
     this.sheetRef.dismiss();
-  }
-
-  protected onFormExpand(event: AnimationEvent): void {
-    if (event.toState !== null) {
-      return;
-    }
-
-    const formElement = this.stebFormElem()?.nativeElement;
-    
-    if (!formElement) {
-      console.error("STEB form should've been present, something's wrong");
-      
-      return;
-    }
-
-    setTimeout(() => {
-      const formHeight = formElement.getBoundingClientRect().height;
-
-      const formContainer = event.element as HTMLDivElement;
-  
-      formContainer.style.maxHeight = formHeight + 'px';
-    });
   }
 
   protected onCancel(): void {
