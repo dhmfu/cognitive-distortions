@@ -22,7 +22,11 @@ export class StebViewComponent {
   private caseService = inject(CaseService);
 
   protected casesByDate = computed(() => {
-    const sortedCases = orderBy(this.relevantCases(), 'date', 'desc')
+    const sortedCases = orderBy(
+      this.relevantCases(),
+      caseData => caseData.dateTime.valueOf(),
+      'desc'
+    );
 
     const groupedCases = groupBy(
       sortedCases,

@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { Case } from '../../models/case';
 import { CaseService } from '../../services/case.service';
 import { DistortionsService } from '../../services/distortions.service';
-import { StebFormComponent } from '../steb-form/steb-form.component';
+import { StebFormContainerComponent } from '../steb-form-container/steb-form-container.component';
 import { StebViewComponent } from '../steb-view/steb-view.component';
 
 @Component({
@@ -27,7 +27,7 @@ export class DistortionCardComponent implements OnDestroy {
   private caseService = inject(CaseService);
   private router = inject(Router);
 
-  private formSheetRef?: MatBottomSheetRef<StebFormComponent>;
+  private formSheetRef?: MatBottomSheetRef<StebFormContainerComponent>;
 
   slug = input.required<string>();
 
@@ -67,7 +67,7 @@ export class DistortionCardComponent implements OnDestroy {
   }
 
   protected onLog(): void {
-    this.formSheetRef = this.bottomSheet.open(StebFormComponent, {
+    this.formSheetRef = this.bottomSheet.open(StebFormContainerComponent, {
       data: this.title(),
       autoFocus: false,
     });

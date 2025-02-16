@@ -12,13 +12,20 @@
     font: var(--mat-sys-headline-medium);
 
     .title-container {
-      display: inline-flex;
       width: 100%;
+      display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      justify-content: space-between;
 
-      mat-icon {
+      .title {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+      }
+
+      > mat-icon {
         color: var(--mat-sys-on-surface-variant);
+        margin-right: 0.75rem;
       }
     }
   }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -13,7 +13,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import isEqual from 'lodash/isEqual';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 // import { DistortionsService } from '../../services/distortions.service';
-import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
+import { Case } from '../../models/case';
 import { STEB_TOOLTIPS } from './steb-tooltips';
 
 // TODO: tech-debt: MatModules optimizations
@@ -34,10 +35,14 @@ import { STEB_TOOLTIPS } from './steb-tooltips';
 export class StebFormComponent {
   private fb = inject(FormBuilder);
   // private distortionsService = inject(DistortionsService);
-  private sheetRef = inject(MatBottomSheetRef);
   private sheetData = inject<string>(MAT_BOTTOM_SHEET_DATA);
 
   private now = new Date();
+
+  backVisible = input<boolean>(false);
+  
+  save = output<Case>();
+  cancel = output<void>();
 
   protected form = this.fb.nonNullable.group({
     details: this.fb.nonNullable.group({
@@ -120,6 +125,6 @@ export class StebFormComponent {
 
     const dateTime = new Date(date.setHours(+hours, +minutes));
 
-    this.sheetRef.dismiss({ dateTime, details });
+    this.save.emit({ dateTime, details });
   }
 }

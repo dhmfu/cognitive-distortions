@@ -1,6 +1,11 @@
 <h2>
   <span class="title-container">
-    <span>
+    <span class="title">
+      @if (backVisible()) {
+        <button mat-icon-button (click)="cancel.emit()">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+      }
       STEB
     </span>
   
