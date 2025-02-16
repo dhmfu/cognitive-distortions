@@ -2,8 +2,12 @@
 
 :host {
   display: inline-block;
-  padding: 0.25rem;
+  padding: 0 1rem;
   min-width: 0;
+
+  &:host-context(.grid):nth-child(odd) {
+    padding-right: 0;
+  }
 
   mat-card {
     height: 100%;
@@ -12,13 +16,23 @@
     justify-content: space-between;
     width: 100%;
 
-    mat-card-title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    mat-card-header {
+      @media (min-width:600px) {
+        ::ng-deep {
+          .mat-mdc-card-header-text {
+            width: 100%;
+          }
+        }
+      }
 
-      button[mat-icon-button] {
-        color: var(--mat-sys-secondary);
+      mat-card-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+  
+        button[mat-icon-button] {
+          color: var(--mat-sys-secondary);
+        }
       }
     }
 
@@ -28,6 +42,18 @@
 
     &:not(.extended) mat-card-content {
       display: flex;
+      justify-content: space-between;
+
+      .distortion-title {
+        padding-right: 0.5rem;
+        overflow-x: hidden;
+        overflow-wrap: break-word;
+        hyphens: manual;
+      }
+      
+      .menu-button {
+        margin: -0.75rem -0.75rem 0;
+      }
     }
   }
 

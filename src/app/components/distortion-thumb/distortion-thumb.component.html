@@ -8,7 +8,7 @@
   @if (extendedView()) {
     <mat-card-header>
       <mat-card-title>
-        <span>
+        <span class="distortion-title" [innerHTML]="title()">
           {{ title() }}
         </span>
 
@@ -22,11 +22,9 @@
     <mat-card-content>{{ example() }}</mat-card-content>
   } @else {
     <mat-card-content>
-      <span>
-        {{ title() }}
-      </span>
+      <span class="distortion-title" [innerHTML]="title()"></span>
 
-      <button mat-icon-button (click)="openMenu($event)">
+      <button mat-icon-button class="menu-button" (click)="openMenu($event)">
         <mat-icon>more_vert</mat-icon>
       </button>
     </mat-card-content>

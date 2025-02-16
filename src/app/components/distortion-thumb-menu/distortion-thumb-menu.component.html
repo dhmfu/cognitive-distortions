@@ -1,10 +1,25 @@
-<mat-nav-list>
-  <a mat-list-item class="primary" (click)="onLog()">
-    <span matListItemTitle>Записати випадок</span>
-  </a>
 
-  <a mat-list-item (click)="onNothing()">
-    <span matListItemTitle>Blank</span>
-    <span matLine>Does nothing?</span>
-  </a>
-</mat-nav-list>
+@if (formVisible()) {
+  <div
+    class="steb-form-container"
+    [@expandOnEnter]
+    [@collapseOnLeave]>
+    <steb-form
+      [backVisible]="true"
+      (save)="onCreateCase($event)"
+      (cancel)="onCancel()"/>
+  </div>
+} @else {
+  <mat-nav-list
+    [@expandOnEnter]="{ value: '', params: { duration: 250 } }"
+    [@.disabled]="menuShownFirstTime()">
+    <a mat-list-item class="primary" (click)="onLog()">
+      <span matListItemTitle>Записати випадок</span>
+    </a>
+  
+    <a mat-list-item (click)="onNothing()">
+      <span matListItemTitle>Blank</span>
+      <span matLine>Does nothing?</span>
+    </a>
+  </mat-nav-list>  
+}

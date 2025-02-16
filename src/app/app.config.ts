@@ -1,4 +1,6 @@
-import { ApplicationConfig, importProvidersFrom, Injectable, isDevMode, provideZoneChangeDetection } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeUk from '@angular/common/locales/uk';
+import { ApplicationConfig, importProvidersFrom, Injectable, isDevMode, LOCALE_ID, provideZoneChangeDetection } from '@angular/core';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { HAMMER_GESTURE_CONFIG, HammerGestureConfig, HammerModule } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -7,6 +9,8 @@ import { provideServiceWorker } from '@angular/service-worker';
 import { version } from '../../package.json';
 import { routes } from './app-routes';
 import { APP_VERSION } from './tokens/version.token';
+
+registerLocaleData(localeUk);
 
 @Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
@@ -27,6 +31,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withComponentInputBinding()),
     provideNativeDateAdapter(),
     importProvidersFrom(HammerModule),
+    { provide: LOCALE_ID, useValue: 'uk-UA'},
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: MyHammerConfig

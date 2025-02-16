@@ -1,6 +1,10 @@
 :host {
   display: block;
 
+  .steb-form-container:not(.ng-animating) {
+    max-height: initial !important;
+  }
+
   mat-nav-list {
     display: flex;
     flex-direction: column;

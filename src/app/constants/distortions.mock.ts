@@ -1,5 +1,7 @@
 import { Distortion } from '../models/distortion';
 
+// TODO: tech-debt: refactor to be an asset
+
 export const MOCK_DISTORTIONS: Distortion[] = [
   {
     title: 'Дихотомічне мислення',
@@ -69,7 +71,7 @@ export const MOCK_DISTORTIONS: Distortion[] = [
     category: 'Самозвинувачення'
   },
   {
-    title: 'Самозвинувачення або самокритика',
+    title: 'Самозвинува&shy;чення або самокритика',
     details: `Бачення себе як причини усього поганого або самокритика без причини.`,
     example: `Приклад: Я почуваюсь погано; я напевно сам на себе це накликав; я не можу впоратись зі своєю роботою, отже, я дурний i лінивий.`,
     category: 'Самозвинувачення'
