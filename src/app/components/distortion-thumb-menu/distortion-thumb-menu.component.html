@@ -1,6 +1,9 @@
 
 @if (formVisible()) {
-  <div [@expandOnEnter] [@collapseOnLeave]>
+  <div
+    class="steb-form-container"
+    [@expandOnEnter]
+    [@collapseOnLeave]>
     <steb-form
       [backVisible]="true"
       (save)="onCreateCase($event)"
@@ -9,7 +12,7 @@
 } @else {
   <mat-nav-list
     [@expandOnEnter]="{ value: '', params: { duration: 250 } }"
-    [@.disabled]="firstTime()">
+    [@.disabled]="menuShownFirstTime()">
     <a mat-list-item class="primary" (click)="onLog()">
       <span matListItemTitle>Записати випадок</span>
     </a>

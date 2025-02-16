@@ -1,9 +1,8 @@
 :host {
   display: block;
 
-  div.ng-animating {
-    // TODO: tech-debt: not hardcode
-    max-height: 616.32px;
+  .steb-form-container:not(.ng-animating) {
+    max-height: initial !important;
   }
 
   mat-nav-list {
