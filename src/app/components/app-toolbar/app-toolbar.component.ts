@@ -22,9 +22,10 @@ export class AppToolbarComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   private layoutService = inject(LayoutService);
 
+  // TODO
   private detailsRouted$ = this.router.events.pipe(
     filter(event => event instanceof NavigationEnd),
-    map((event) => event.url !== '/')
+    map((event) => event.url !== '/distortions')
   );
 
   protected layoutControl = new FormControl<Layout | null>(null);
@@ -51,6 +52,11 @@ export class AppToolbarComponent implements OnInit {
   }
 
   protected goBack(): void {
-    this.router.navigate(['']);
+    this.router.navigate(['distortions']);
+  }
+
+  // TODO
+  protected navigate(): void {
+    this.router.navigate(['steb-analysis']);
   }
 }

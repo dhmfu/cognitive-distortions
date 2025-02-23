@@ -43,7 +43,7 @@ export class DistortionCardComponent implements OnDestroy {
 
   // effects
   private distortionExistGuard = effect(() => {
-    if (this.slug !== undefined && !this.distortion()) {
+    if (this.slug() !== undefined && !this.distortion()) {
       this.router.navigate(['']);
     }
   });
