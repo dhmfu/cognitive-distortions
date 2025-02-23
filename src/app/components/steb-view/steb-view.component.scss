@@ -21,6 +21,9 @@
           justify-content: center;
           max-width: 100%;
           gap: 0.25rem;
+          padding-right: 1rem;
+          margin: 0;
+          width: 0; // it just works...
     
           .short-situation {
             height: var(--mat-expansion-header-text-line-height, var(--mat-sys-title-medium-line-height));

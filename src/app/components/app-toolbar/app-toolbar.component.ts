@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import { Layout } from '../../constants/layout.enum';
@@ -12,7 +13,7 @@ import { LayoutService } from '../../services/layout.service';
 
 @Component({
   selector: 'app-toolbar',
-  imports: [MatToolbarModule, MatButtonToggleModule, MatIconModule, FormsModule, ReactiveFormsModule, MatButtonModule],
+  imports: [MatToolbarModule, MatButtonToggleModule, MatIconModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatTooltipModule],
   templateUrl: './app-toolbar.component.html',
   styleUrl: './app-toolbar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -22,19 +23,27 @@ export class AppToolbarComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   private layoutService = inject(LayoutService);
 
-  // TODO
-  private detailsRouted$ = this.router.events.pipe(
+  private detailsRouted = toSignal(this.router.events.pipe(
     filter(event => event instanceof NavigationEnd),
-    map((event) => event.url !== '/distortions')
-  );
+    map((event) => !!event.url.match(/distortions\/+/))
+  ));
+  private stebRouted = toSignal(this.router.events.pipe(
+    filter(event => event instanceof NavigationEnd),
+    map((event) => event.url === '/steb-analysis')
+  ), { initialValue: false });
 
   protected layoutControl = new FormControl<Layout | null>(null);
 
-  protected backButtonVisible = toSignal(
-    this.detailsRouted$.pipe(map(routed => Number(routed))),
-    { initialValue: 0 }
-  );
-  protected layoutControlVisible = computed(() => Number(!this.backButtonVisible()));
+  protected backButtonVisible = computed(() => Number(this.detailsRouted()));
+  protected layoutControlVisible = computed(() => Number(!this.stebRouted() && !this.detailsRouted()));
+  protected navigationButton = computed(() => {
+    const stebRouted = this.stebRouted();
+  
+    const tooltip = stebRouted ? 'Когнітивні викривлення' : 'STEB analysis';
+    const icon = stebRouted ? 'description' : 'folder';
+
+    return { tooltip, icon };
+  });
 
   protected readonly LAYOUT_OPTIONS = Layout;
 
@@ -55,8 +64,9 @@ export class AppToolbarComponent implements OnInit {
     this.router.navigate(['distortions']);
   }
 
-  // TODO
   protected navigate(): void {
-    this.router.navigate(['steb-analysis']);
+    const path = this.stebRouted() ? 'distortions' : 'steb-analysis';
+
+    this.router.navigate([path]);
   }
 }

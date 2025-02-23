@@ -16,7 +16,10 @@
     </mat-button-toggle>
   </mat-button-toggle-group>
 
-  <button mat-icon-button (click)="navigate()">
-    <mat-icon>more_vert</mat-icon>
+  <button
+    mat-icon-button
+    [matTooltip]="navigationButton().tooltip"
+    (click)="navigate()">
+    <mat-icon>{{ navigationButton().icon }}</mat-icon>
   </button>
 </mat-toolbar>
