@@ -1,21 +1,20 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal, viewChild } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
-import { MatChipsModule } from '@angular/material/chips';
+import { MatChipSelectionChange, MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule, MatExpansionPanel } from '@angular/material/expansion';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import isEqual from 'lodash/isEqual';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { Case } from '../../models/case';
-import { Distortion } from '../../models/distortion';
 import { DistortionsService } from '../../services/distortions.service';
 import { STEB_TOOLTIPS } from './steb-tooltips';
 
@@ -23,7 +22,7 @@ import { STEB_TOOLTIPS } from './steb-tooltips';
 
 @Component({
   selector: 'steb-form',
-  imports: [MatFormFieldModule, MatInputModule, MatDialogModule, MatButtonModule, MatIconModule, MatDatepickerModule, MatChipsModule, MatAutocompleteModule, NgxMatTimepickerModule, FormsModule, ReactiveFormsModule, MatTooltipModule, MatSelectModule],
+  imports: [MatFormFieldModule, MatInputModule, MatDialogModule, MatButtonModule, MatIconModule, MatDatepickerModule, MatChipsModule, MatAutocompleteModule, NgxMatTimepickerModule, FormsModule, ReactiveFormsModule, MatTooltipModule, MatSelectModule, MatExpansionModule],
   providers: [
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
@@ -46,6 +45,8 @@ export class StebFormComponent {
   save = output<Case>();
   cancel = output<void>();
 
+  protected distortionsPanel = viewChild(MatExpansionPanel);
+
   protected form = this.fb.nonNullable.group({
     details: this.fb.nonNullable.group({
       situation: [''],
@@ -59,41 +60,64 @@ export class StebFormComponent {
   });
   protected distortionsControl = this.form.get('details')!.get('distortions')! as FormControl<string[]>;
   
-  protected distortions = toSignal(
+  private distortionsControlSignal = toSignal(
     this.distortionsControl.valueChanges,
-    { initialValue: this.distortionsControl.value, equal: isEqual }
+    { initialValue: this.distortionsControl.value }
   );
   protected addDistortionMode = signal(false);
+
+  protected distortions = computed(() => {
+    const allDistortions = this.distortionsService.getDistortions();
+    const selectedDistortions = this.distortionsControlSignal();
+    const addMode = this.addDistortionMode();
+
+    return allDistortions().reduce((result, distortion) => {
+      const value = distortion.title;
+      const selected = selectedDistortions.includes(value);
+      const disabled = !selected && !addMode;
+
+      return !disabled ? [...result, { value, selected }] : [...result];
+    }, [] as { value: string, selected: boolean }[]);
+  });
+  protected distortionCounter = computed(() => this.distortions().filter(d => d.selected).length);
+
   protected readonly TOOLTIPS = STEB_TOOLTIPS;
 
-  private categoryMap = computed(() => {
-    return this.distortionsService.getDistortions()().reduce((map, distortion) => {
-      const categoryKey = distortion.category;
-
-      if (!map[categoryKey]) {
-        map[categoryKey] = [];
-      }
-
-      map[categoryKey].push(distortion);
-
-      return map;
-    }, {} as { [title: string]: Distortion[] })
-  });
-
-  protected categories = computed(() => {
-    const categoryMap = this.categoryMap();
-
-    if (!categoryMap) {
-      return [];
+  private openDistortions = effect(() => {
+    if (!this.addDistortionMode()) {
+      return;
     }
 
-    return Object.entries(categoryMap).map(([key, value]) => {
-      return { title: key, distortions: value };
-    });
+    const distortionsPanel = this.distortionsPanel();
+
+    if (!distortionsPanel) {
+      return;
+    }
+
+    distortionsPanel.open();
   });
 
   protected onAddDistortionsMode(): void {
     this.addDistortionMode.set(true);
+  }
+
+  protected onAddDistortion(event: MatChipSelectionChange): void {
+    if (!event.isUserInput) {
+      return;
+    }
+    
+    const currentSelected = this.distortionsControl.value;
+    const clickedDistortion: string = event.source.value;
+
+    let newSelected: string[];
+
+    if (event.selected) {
+      newSelected = [...currentSelected, clickedDistortion];
+    } else {
+      newSelected = currentSelected.filter(d => d !== clickedDistortion);
+    }
+    
+    this.distortionsControl.setValue(newSelected);
   }
 
   protected onSubmit():  void {

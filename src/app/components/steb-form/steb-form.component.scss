@@ -3,6 +3,31 @@
 }
 
 :host {
+  mat-accordion {
+    display: block;
+    margin-bottom: var(--mat-sys-body-medium-line-height);
+
+    mat-expansion-panel {
+      box-shadow: none;
+      border: 1px solid var(--mat-sys-outline);
+      background: var(--mat-sys-surface-container-low);
+      border-radius: 4px;
+
+      mat-expansion-panel-header {
+        padding: 0 12px;
+
+        mat-panel-title {
+          color: var(--mat-sys-on-surface-variant);
+        }
+
+        mat-panel-description {
+          flex-grow: 0;
+          margin: 0;
+        }
+      }
+    }
+  }
+
   display: block;
   padding: 0.5rem 0;
 
