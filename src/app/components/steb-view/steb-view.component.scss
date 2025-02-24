@@ -42,6 +42,13 @@
       }
     }
 
+    ::ng-deep {
+      .mat-expansion-panel-body {
+        padding-top: 16px;
+        background-color: white;
+      }
+    }
+
     .steb-item {
       display: flex;
       flex-direction: column;

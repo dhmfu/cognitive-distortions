@@ -24,25 +24,27 @@
           </button>
         </mat-expansion-panel-header>
 
-        <div class="steb-item">
-          <h4>Cитуація:</h4>
-          <p>{{ item.details.situation || '--' }}</p>
-        </div>
-
-        <div class="steb-item">
-          <h4>Думки:</h4>
-          <p>{{ item.details.thoughts || '--' }}</p>
-        </div>
-
-        <div class="steb-item">
-          <h4>Емоції:</h4>
-          <p>{{ item.details.emotions || '--' }}</p>
-        </div>
-
-        <div class="steb-item">
-          <h4>Поведінка:</h4>
-          <p>{{ item.details.behaviour || '--' }}</p>
-        </div>
+        <section>
+          <div class="steb-item">
+            <h4>Cитуація:</h4>
+            <p>{{ item.details.situation || '--' }}</p>
+          </div>
+  
+          <div class="steb-item">
+            <h4>Думки:</h4>
+            <p>{{ item.details.thoughts || '--' }}</p>
+          </div>
+  
+          <div class="steb-item">
+            <h4>Емоції:</h4>
+            <p>{{ item.details.emotions || '--' }}</p>
+          </div>
+  
+          <div class="steb-item">
+            <h4>Поведінка:</h4>
+            <p>{{ item.details.behaviour || '--' }}</p>
+          </div>
+        </section>
       </mat-expansion-panel>
     }
   </mat-accordion>
