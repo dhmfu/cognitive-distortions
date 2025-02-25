@@ -33,6 +33,28 @@
           <div class="steb-item">
             <h4>Думки:</h4>
             <p>{{ item.details.thoughts || '--' }}</p>
+            
+            @if (item.details.distortions.length) {
+              <section class="distorions-section">
+                <button
+                  mat-button
+                  [matBadge]="item.details.distortions.length"
+                  matBadgeSize="large"
+                  (click)="distortionsVisible = !distortionsVisible">
+                  Когнітивні викривлення
+                </button>
+
+                @if (distortionsVisible) {
+                  <mat-chip-set [@fadeInOnEnter] [@fadeOutOnLeave]>
+                    @for (distortion of item.details.distortions; track $index) {
+                      <mat-chip>
+                        {{ distortion }}
+                      </mat-chip>
+                    }
+                  </mat-chip-set>
+                }
+              </section>
+            }
           </div>
   
           <div class="steb-item">

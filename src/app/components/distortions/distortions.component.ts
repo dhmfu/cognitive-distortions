@@ -36,7 +36,7 @@ export class DistortionsComponent {
   protected rowsLayout = computed(() => !this.gridLayout());
   protected animating = this.defineAnimating();
 
-  protected distortions = this.distortionService.getDistortions();
+  protected distortions = this.distortionService.getSortedDistortions();
 
   private defineAnimating(): Signal<boolean> {
     return toSignal(
