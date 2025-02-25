@@ -1,6 +1,9 @@
 {
   "configVersion": 1,
-  "timestamp": 1734185114681,
+  "timestamp": 1740505922464,
+  "appData": {
+    "version": "0.2.0"
+  },
   "index": "/cognitive-distortions/index.html",
   "assetGroups": [
     {
@@ -11,14 +14,14 @@
         "ignoreVary": true
       },
       "urls": [
-        "/cognitive-distortions/chunk-JMOUXEWV.js",
-        "/cognitive-distortions/chunk-SJDZEOVA.js",
+        "/cognitive-distortions/chunk-4SVYEVUI.js",
+        "/cognitive-distortions/chunk-USKSQJPD.js",
         "/cognitive-distortions/favicon.ico",
         "/cognitive-distortions/index.html",
-        "/cognitive-distortions/main-V4VJGL3K.js",
+        "/cognitive-distortions/main-VLJGGCHD.js",
         "/cognitive-distortions/manifest.webmanifest",
         "/cognitive-distortions/polyfills-FFHMD2TL.js",
-        "/cognitive-distortions/styles-SIMXPKYJ.css"
+        "/cognitive-distortions/styles-CDM4ZKVM.css"
       ],
       "patterns": []
     },
@@ -44,22 +47,22 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "/cognitive-distortions/chunk-JMOUXEWV.js": "e7469940e942bac292433010540266695b8ea4bc",
-    "/cognitive-distortions/chunk-SJDZEOVA.js": "50d6d660b9bb4a99012a5d03f944991a457643d3",
-    "/cognitive-distortions/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
-    "/cognitive-distortions/icons/icon-128x128.png": "f912963bdc6d5a38d8f1dd0afbaab2ce8d657acb",
-    "/cognitive-distortions/icons/icon-144x144.png": "b155fd5f2fd5d2ea7760721063003c4cd95fd783",
-    "/cognitive-distortions/icons/icon-152x152.png": "eae6e0f0c8afb8aaae339e2a569b43e9238e5e6c",
-    "/cognitive-distortions/icons/icon-192x192.png": "15c4180454633880d98674aa7394656196c91584",
-    "/cognitive-distortions/icons/icon-384x384.png": "94a915751ef6c9282df9aea405ad679230631814",
-    "/cognitive-distortions/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
-    "/cognitive-distortions/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
-    "/cognitive-distortions/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
-    "/cognitive-distortions/index.html": "e6a81382dfae191d160366d040db9d171410b9cf",
-    "/cognitive-distortions/main-V4VJGL3K.js": "5c5a5add5c8378a6d462d83fcbf8553d0e3862ba",
+    "/cognitive-distortions/chunk-4SVYEVUI.js": "f8843882e687312a6a60f530402bf36e163be7d5",
+    "/cognitive-distortions/chunk-USKSQJPD.js": "f510545a9deb0afc49009358d61b2ea8d7338d24",
+    "/cognitive-distortions/favicon.ico": "13fc59e840ae3cdf2a535f58a975c0559393b260",
+    "/cognitive-distortions/icons/icon-128x128.png": "6a4662f5154dbd829585acfb140dab6d26618e08",
+    "/cognitive-distortions/icons/icon-144x144.png": "d4dedef2f49b7890012d8bb034a31da1490ea5e1",
+    "/cognitive-distortions/icons/icon-152x152.png": "28f6c1429fc01c2523c0ded5c691f451370cacca",
+    "/cognitive-distortions/icons/icon-192x192.png": "b1e5c910c9589cb6c8875f3a76c3dd7ba549fbcc",
+    "/cognitive-distortions/icons/icon-384x384.png": "65ac6fad0ffd5e728c9d023974242597b1e58500",
+    "/cognitive-distortions/icons/icon-512x512.png": "e125cd0417dc235a5731aa9114cc9e9ea610df09",
+    "/cognitive-distortions/icons/icon-72x72.png": "64f86ba04a39b727f264ecb6ff24cd84314c287a",
+    "/cognitive-distortions/icons/icon-96x96.png": "4c97d4c7e96c6561339699ee6f2ee71779508340",
+    "/cognitive-distortions/index.html": "4b73b006e5c4b14b482f1583484532ceb72161b6",
+    "/cognitive-distortions/main-VLJGGCHD.js": "11fbdab04ae60a49944906228617f2e0cd963b1c",
     "/cognitive-distortions/manifest.webmanifest": "3a12d74e628a98c6e5f584d721039e6e3187966d",
     "/cognitive-distortions/polyfills-FFHMD2TL.js": "f49b49a155bc7d192db62a4c15d0a612b460a667",
-    "/cognitive-distortions/styles-SIMXPKYJ.css": "6bc4b47e2d90b9c1fcae0776c227c3adbcbc5956"
+    "/cognitive-distortions/styles-CDM4ZKVM.css": "e0c4bc1ffc08a692a24e40dcffa238de05592433"
   },
   "navigationUrls": [
     {
