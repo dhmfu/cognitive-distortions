@@ -34,6 +34,7 @@ export class StebAnalysisComponent {
   protected onLog(): void {
     this.formSheetRef = this.bottomSheet.open(StebFormContainerComponent, {
       autoFocus: false,
+      panelClass: 'smooth-scroll-panel'
     });
 
     this.formSheetRef.afterDismissed().pipe(

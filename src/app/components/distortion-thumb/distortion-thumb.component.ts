@@ -54,7 +54,8 @@ export class DistorionThumbComponent {
     // TODO: tech-debt: clear ref on navigation
     this.bottomSheet.open(DistortionThumbMenuComponent, {
       data: this.title(),
-      restoreFocus: false
+      restoreFocus: false,
+      panelClass: 'smooth-scroll-panel'
     });
   }
 }

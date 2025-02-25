@@ -3,33 +3,38 @@
 }
 
 :host {
-  mat-accordion {
-    display: block;
+  display: block;
+  padding: 0.5rem 0;
+
+  section.distortions {
+    padding-top: 1rem;
+    margin-top: -1rem;
     margin-bottom: var(--mat-sys-body-medium-line-height);
 
-    mat-expansion-panel {
-      box-shadow: none;
-      border: 1px solid var(--mat-sys-outline);
-      background: var(--mat-sys-surface-container-low);
-      border-radius: 4px;
-
-      mat-expansion-panel-header {
-        padding: 0 12px;
-
-        mat-panel-title {
-          color: var(--mat-sys-on-surface-variant);
-        }
-
-        mat-panel-description {
-          flex-grow: 0;
-          margin: 0;
+    mat-accordion {
+      display: block;
+  
+      mat-expansion-panel {
+        box-shadow: none;
+        border: 1px solid var(--mat-sys-outline);
+        background: var(--mat-sys-surface-container-low);
+        border-radius: 4px;
+  
+        mat-expansion-panel-header {
+          padding: 0 12px;
+  
+          mat-panel-title {
+            color: var(--mat-sys-on-surface-variant);
+          }
+  
+          mat-panel-description {
+            flex-grow: 0;
+            margin: 0;
+          }
         }
       }
     }
   }
-
-  display: block;
-  padding: 0.5rem 0;
 
   h2 {
     margin: 0 0 1.5rem;
@@ -61,17 +66,6 @@
 
   mat-form-field {
     width: 100%;
-  }
-
-  .distortions {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    margin-bottom: 1rem;
-
-    span {
-      font-size: var(--mat-sys-body-large-size);
-    }
   }
 
   .date-time {

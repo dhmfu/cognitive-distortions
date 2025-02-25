@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, input, output, signal, viewChild } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -45,6 +45,7 @@ export class StebFormComponent {
   save = output<Case>();
   cancel = output<void>();
 
+  protected distorionPanelContainer = viewChild<ElementRef<HTMLElement>>('distorionPanelContainer');
   protected distortionsPanel = viewChild(MatExpansionPanel);
 
   protected form = this.fb.nonNullable.group({
@@ -83,7 +84,7 @@ export class StebFormComponent {
 
   protected readonly TOOLTIPS = STEB_TOOLTIPS;
 
-  private openDistortions = effect(() => {
+  private openDistortions = effect((onCleanup) => {
     if (!this.addDistortionMode()) {
       return;
     }
@@ -95,6 +96,18 @@ export class StebFormComponent {
     }
 
     distortionsPanel.open();
+
+    const distorionPanelContainer = this.distorionPanelContainer();
+
+    if (!distorionPanelContainer?.nativeElement) {
+      return
+    }
+
+    const timer = setTimeout(() => {
+      distorionPanelContainer.nativeElement.scrollIntoView();
+    }, 250);
+
+    onCleanup(() => clearTimeout(timer));
   });
 
   protected onAddDistortionsMode(): void {

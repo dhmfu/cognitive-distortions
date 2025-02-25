@@ -51,36 +51,38 @@
         </mat-form-field>
 
         @if (distortions().length) {
-          <mat-accordion togglePosition="before">
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  <span>
-                    Когнітивні викривлення: {{ distortionCounter() }}
-                  </span>
-                </mat-panel-title>
-                <mat-panel-description>
-                  <mat-icon
-                    [matTooltip]="TOOLTIPS.distortions"
-                    matTooltipClass="tooltip-xl">
-                    help_outlined
-                  </mat-icon>
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-  
-              <mat-chip-listbox multiple>
-                @for (distortion of distortions(); track $index) {
-                  <mat-chip-option
-                    [value]="distortion.value"
-                    [selected]="distortion.selected"
-                    [disabled]="!addDistortionMode()"
-                    (selectionChange)="onAddDistortion($event)">
-                    {{ distortion.value }}
-                  </mat-chip-option>
-                }
-              </mat-chip-listbox>
-            </mat-expansion-panel>
-          </mat-accordion>
+          <section #distorionPanelContainer class="distortions">
+            <mat-accordion togglePosition="before">
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <span>
+                      Когнітивні викривлення: {{ distortionCounter() }}
+                    </span>
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    <mat-icon
+                      [matTooltip]="TOOLTIPS.distortions"
+                      matTooltipClass="tooltip-xl">
+                      help_outlined
+                    </mat-icon>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+    
+                <mat-chip-listbox multiple>
+                  @for (distortion of distortions(); track $index) {
+                    <mat-chip-option
+                      [value]="distortion.value"
+                      [selected]="distortion.selected"
+                      [disabled]="!addDistortionMode()"
+                      (selectionChange)="onAddDistortion($event)">
+                      {{ distortion.value }}
+                    </mat-chip-option>
+                  }
+                </mat-chip-listbox>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </section>
         }
 
         @if (!addDistortionMode()) {

@@ -70,6 +70,7 @@ export class DistortionCardComponent implements OnDestroy {
     this.formSheetRef = this.bottomSheet.open(StebFormContainerComponent, {
       data: this.title(),
       autoFocus: false,
+      panelClass: 'smooth-scroll-panel'
     });
 
     this.formSheetRef.afterDismissed().pipe(
