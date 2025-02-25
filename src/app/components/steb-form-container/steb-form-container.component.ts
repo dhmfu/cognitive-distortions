@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { StebFormComponent } from "../steb-form/steb-form.component";
+import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { Case } from '../../models/case';
-import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { StebFormComponent } from "../steb-form/steb-form.component";
 
 @Component({
   selector: 'steb-form-container',

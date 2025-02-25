@@ -50,41 +50,51 @@
           </mat-icon>
         </mat-form-field>
 
-        <div class="distortions">
-          <span>Когнітивні викривлення:</span>
+        @if (distortions().length) {
+          <section #distorionPanelContainer class="distortions">
+            <mat-accordion togglePosition="before">
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <span>
+                      Когнітивні викривлення: {{ distortionCounter() }}
+                    </span>
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    <mat-icon
+                      [matTooltip]="TOOLTIPS.distortions"
+                      matTooltipClass="tooltip-xl">
+                      help_outlined
+                    </mat-icon>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+    
+                <mat-chip-listbox multiple>
+                  @for (distortion of distortions(); track $index) {
+                    <mat-chip-option
+                      [value]="distortion.value"
+                      [selected]="distortion.selected"
+                      [disabled]="!addDistortionMode()"
+                      (selectionChange)="onAddDistortion($event)">
+                      {{ distortion.value }}
+                    </mat-chip-option>
+                  }
+                </mat-chip-listbox>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </section>
+        }
 
-          <mat-chip-set>
-            @for (distortion of distortions(); track $index) {
-              <mat-chip>{{ distortion }}</mat-chip>
-            }
-          </mat-chip-set>
-        </div>
-
-        <!-- <mat-form-field>
-          <mat-label>Викривлення</mat-label>
-          <mat-chip-grid #chipGrid [formControl]="distortionsControl">
-            @for (distortion of distortions(); track $index) {
-              <mat-chip-row>
-                {{ distortion }}
-              </mat-chip-row>
-            }
-          </mat-chip-grid>
-          <input
-            [matChipInputFor]="chipGrid"
-            [matAutocomplete]="autoGroup"
-          />
-          <mat-autocomplete #autoGroup="matAutocomplete" (optionSelected)="onDistortionAdd($event)">
-            @for (category of categories(); track category.title) {
-              <mat-optgroup [label]="category.title">
-                @for (distortion of category.distortions; track distortion) {
-                  <mat-option [value]="distortion">
-                    {{ distortion.title }}
-                  </mat-option>
-                }
-              </mat-optgroup>
-            }
-          </mat-autocomplete>
-        </mat-form-field> -->
+        @if (!addDistortionMode()) {
+          <div class="add-distorion-wrapper">
+            <button
+              type="button"
+              mat-stroked-button
+              (click)="onAddDistortionsMode()">
+              Вказати викривлення
+            </button>
+          </div>
+        }
       
         <mat-form-field>
           <mat-label>Емоції</mat-label>

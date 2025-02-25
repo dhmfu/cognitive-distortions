@@ -15,3 +15,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   user-select: none;
 }
 
+.smooth-scroll-panel mat-bottom-sheet-container {
+  scroll-behavior: smooth;
+}
+

@@ -43,7 +43,7 @@ export class DistortionCardComponent implements OnDestroy {
 
   // effects
   private distortionExistGuard = effect(() => {
-    if (this.slug !== undefined && !this.distortion()) {
+    if (this.slug() !== undefined && !this.distortion()) {
       this.router.navigate(['']);
     }
   });
@@ -70,6 +70,7 @@ export class DistortionCardComponent implements OnDestroy {
     this.formSheetRef = this.bottomSheet.open(StebFormContainerComponent, {
       data: this.title(),
       autoFocus: false,
+      panelClass: 'smooth-scroll-panel'
     });
 
     this.formSheetRef.afterDismissed().pipe(

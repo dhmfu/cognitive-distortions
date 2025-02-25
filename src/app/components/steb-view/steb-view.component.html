@@ -1,5 +1,3 @@
-<header>Випадки:</header>
-
 @for (caseDateGroup of casesByDate(); track $index) {
   <mat-accordion displayMode="flat">
     @for (item of caseDateGroup; track $index) {
@@ -26,25 +24,49 @@
           </button>
         </mat-expansion-panel-header>
 
-        <div class="steb-item">
-          <h4>Cитуація:</h4>
-          <p>{{ item.details.situation || '--' }}</p>
-        </div>
+        <section>
+          <div class="steb-item">
+            <h4>Cитуація:</h4>
+            <p>{{ item.details.situation || '--' }}</p>
+          </div>
+  
+          <div class="steb-item">
+            <h4>Думки:</h4>
+            <p>{{ item.details.thoughts || '--' }}</p>
+            
+            @if (item.details.distortions.length) {
+              <section class="distorions-section">
+                <button
+                  mat-button
+                  [matBadge]="item.details.distortions.length"
+                  matBadgeSize="large"
+                  (click)="distortionsVisible = !distortionsVisible">
+                  Когнітивні викривлення
+                </button>
 
-        <div class="steb-item">
-          <h4>Думки:</h4>
-          <p>{{ item.details.thoughts || '--' }}</p>
-        </div>
-
-        <div class="steb-item">
-          <h4>Емоції:</h4>
-          <p>{{ item.details.emotions || '--' }}</p>
-        </div>
-
-        <div class="steb-item">
-          <h4>Поведінка:</h4>
-          <p>{{ item.details.behaviour || '--' }}</p>
-        </div>
+                @if (distortionsVisible) {
+                  <mat-chip-set [@fadeInOnEnter] [@fadeOutOnLeave]>
+                    @for (distortion of item.details.distortions; track $index) {
+                      <mat-chip>
+                        {{ distortion }}
+                      </mat-chip>
+                    }
+                  </mat-chip-set>
+                }
+              </section>
+            }
+          </div>
+  
+          <div class="steb-item">
+            <h4>Емоції:</h4>
+            <p>{{ item.details.emotions || '--' }}</p>
+          </div>
+  
+          <div class="steb-item">
+            <h4>Поведінка:</h4>
+            <p>{{ item.details.behaviour || '--' }}</p>
+          </div>
+        </section>
       </mat-expansion-panel>
     }
   </mat-accordion>

@@ -40,6 +40,10 @@ export class CaseService {
     this.cases.set(newCaseState);
   }
 
+  getAllCases(): Signal<Case[]> {
+    return this.cases.asReadonly();
+  }
+
   getRelevantCases(distortion: string): Signal<Case[]> {
     return computed(() => this.cases().filter(
       caseData => !!caseData.details.distortions.includes(distortion)
@@ -48,12 +52,15 @@ export class CaseService {
 
   private initCurrent(): WritableSignal<Case[]> {
     const localCases = this.localStorage.get<Case[]>(LocalKey.Cases);
-    const cases = (localCases ?? []).map(caseData => ({
-      ...caseData,
-      date: new Date(caseData.dateTime)
-    }));
-    
+    const cases = (localCases ?? []).map(({ details, dateTime }) => {
+      const caseData: Case = {
+        details,
+        dateTime: new Date(dateTime)
+      };
 
+      return caseData;
+    });
+    
     return signal<Case[]>(cases);
   }
 }

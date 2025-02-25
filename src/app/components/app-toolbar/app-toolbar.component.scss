@@ -4,5 +4,9 @@
   mat-toolbar {
     background: var(--mat-sys-primary-container);
     justify-content: space-between;
+
+    mat-button-toggle.selected {
+      color: var(--mat-sys-primary);
+    }
   }
 }
